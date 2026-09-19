@@ -1,23 +1,6 @@
 <?php
 session_start();
 
-// Seed Default Mock Users
-if (!isset($_SESSION['author'])) {
-    $_SESSION['author'] = [
-        'A001' => ['author_id' => 'A001', 'author_name' => 'Alice Author', 'email' => 'alice@example.com', 'password' => 'author123']
-    ];
-}
-if (!isset($_SESSION['reviewer'])) {
-    $_SESSION['reviewer'] = [
-        'R001' => ['reviewer_id' => 'R001', 'reviewer_name' => 'Dr. Bob Reviewer', 'email' => 'bob@example.com', 'password' => 'reviewer123']
-    ];
-}
-if (!isset($_SESSION['administrator'])) {
-    $_SESSION['administrator'] = [
-        'ADMIN1' => ['admin_id' => 'ADMIN1', 'admin_name' => 'Charlie Admin', 'email' => 'admin@example.com', 'password' => 'admin123', 'role' => 'Super Admin']
-    ];
-}
-
 // Handle Logout
 if (isset($_GET['action']) && $_GET['action'] === 'logout') {
     session_destroy();
