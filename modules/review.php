@@ -22,7 +22,7 @@
             </div>
             <div class="form-group">
                 <label for="review_date">Review Date:</label>
-                <input type="date" id="review_date" name="review_date">
+                <input type="text" id="review_date" name="review_date" placeholder="dd-mm-yyyy">
             </div>
             <div class="form-group">
                 <label for="review_score">Review Score:</label>
