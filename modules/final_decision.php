@@ -12,8 +12,18 @@ function addRecord($data) {
     global $module, $primary_key;
     $id = $data[$primary_key] ?? uniqid();
     unset($data['action']);
+    
     if ($id) {
         $_SESSION[$module][$id] = $data;
+        
+        // Workflow 4: Admin issues Final Decision -> updates paper status
+        if (!empty($data['paper_id']) && isset($_SESSION['research_paper'][$data['paper_id']])) {
+            $new_status = $data['final_status'];
+            if ($new_status === 'Further Revision') {
+                $new_status = 'Revision Required';
+            }
+            $_SESSION['research_paper'][$data['paper_id']]['status'] = $new_status;
+        }
     }
 }
 
@@ -22,6 +32,17 @@ function updateRecord($id, $data) {
     unset($data['action']);
     if (isset($_SESSION[$module][$id])) {
         $_SESSION[$module][$id] = array_merge($_SESSION[$module][$id], $data);
+        
+        // Workflow 4: Sync to paper on update as well
+        if (!empty($_SESSION[$module][$id]['paper_id']) && isset($_SESSION['research_paper'][$_SESSION[$module][$id]['paper_id']])) {
+            $new_status = $_SESSION[$module][$id]['final_status'] ?? '';
+            if ($new_status === 'Further Revision') {
+                $new_status = 'Revision Required';
+            }
+            if ($new_status) {
+                $_SESSION['research_paper'][$_SESSION[$module][$id]['paper_id']]['status'] = $new_status;
+            }
+        }
     }
 }
 
