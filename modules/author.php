@@ -132,6 +132,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['role'] === 'Author') {
                         <?php foreach(array_keys(reset($records)) as $key): ?>
                             <th style="padding: 10px; border: 1px solid #eee;"><?= htmlspecialchars(ucwords(str_replace('_', ' ', $key))) ?></th>
                         <?php endforeach; ?>
+                    <th style=\"padding: 10px; border: 1px solid #eee; text-align: center; width: 60px;\">Actions</th>
                     <?php else: ?>
                         <th style="padding: 10px;">No records found.</th>
                     <?php endif; ?>
@@ -143,6 +144,9 @@ if (isset($_SESSION['logged_in']) && $_SESSION['role'] === 'Author') {
                         <?php foreach($rec as $key => $val): ?>
                             <td style="padding: 10px; border: 1px solid #eee;"><?= htmlspecialchars($val) ?></td>
                         <?php endforeach; ?>
+                    <td style=\"padding: 10px; border: 1px solid #eee; text-align: center;\">
+                        <button type=\"button\" class=\"btn btn-primary\" style=\"padding: 4px 8px; font-size: 11px;\" onclick='fillForm(<?= json_encode($rec, JSON_HEX_APOS | JSON_HEX_QUOT) ?>)'>Edit</button>
+                    </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
