@@ -10,7 +10,7 @@ if (!isset($_SESSION[$module])) {
 // CRUD Functions
 function addRecord($data) {
     global $module, $primary_key;
-    $id = $data[$primary_key] ?? uniqid();
+    $id = !empty($data[$primary_key]) ? $data[$primary_key] : uniqid();
     unset($data['action']);
     
     // Workflow 1: Author submits paper -> status = 'Submitted'
