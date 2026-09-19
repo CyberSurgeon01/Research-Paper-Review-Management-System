@@ -5,8 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
     forms.forEach(form => {
         form.addEventListener("submit", function (e) {
-            e.preventDefault(); // Mock submit
-
+            
             let isValid = true;
             let errorMessage = "";
 
@@ -61,15 +60,16 @@ document.addEventListener("DOMContentLoaded", function () {
             });
 
             if (!isValid) {
+                e.preventDefault();
                 alert("Validation Failed:\n" + errorMessage + (errorMessage === "" ? "- Please fill in all required fields.\n" : ""));
                 return;
             }
 
             // Simple toast/alert on success
-            alert("Success: Form submitted successfully!");
+            
             
             // For mock purpose, clear the form
-            form.reset();
+            
         });
     });
 
