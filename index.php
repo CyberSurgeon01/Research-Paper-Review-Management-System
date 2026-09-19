@@ -41,9 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         $_SESSION['role'] = $role;
         $_SESSION['user_id'] = $user_id;
         
-        if ($role === 'Author') header("Location: modules/author.php");
-        elseif ($role === 'Reviewer') header("Location: modules/reviewer.php");
-        elseif ($role === 'Administrator') header("Location: modules/administrator.php");
+        header("Location: index.php");
         exit;
     } else {
         $error = "Invalid User ID or Password.";
