@@ -144,3 +144,18 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
+// Pre-fill forms when clicking the Edit button in tables
+function fillForm(record) {
+    for (const key in record) {
+        const input = document.getElementById(key);
+        if (input) {
+            input.value = record[key];
+        }
+    }
+    // Scroll up to the form smoothly
+    const form = document.querySelector('form');
+    if (form) {
+        form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+}
