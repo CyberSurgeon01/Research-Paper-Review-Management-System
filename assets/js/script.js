@@ -122,3 +122,25 @@ document.addEventListener("DOMContentLoaded", function () {
     populateDropdown("recommendation", reviewRecommendations, "Select recommendation");
     populateDropdown("final_status", finalStatuses, "Select final status");
 });
+
+// Auto-format status text into UI badges in data tables
+document.addEventListener("DOMContentLoaded", function() {
+    const cells = document.querySelectorAll("table td");
+    cells.forEach(cell => {
+        const text = cell.innerText.trim();
+        const statuses = ["Submitted", "Under Review", "Accepted", "Rejected", "Revision Required", "Further Revision", "Accept", "Minor Revision", "Major Revision", "Reject"];
+        
+        if (statuses.includes(text)) {
+            let badgeClass = "";
+            if (text === "Submitted") badgeClass = "badge-submitted";
+            else if (text === "Under Review") badgeClass = "badge-review";
+            else if (text === "Accepted" || text === "Accept") badgeClass = "badge-accepted";
+            else if (text === "Rejected" || text === "Reject") badgeClass = "badge-rejected";
+            else if (text === "Revision Required" || text === "Further Revision" || text === "Minor Revision" || text === "Major Revision") badgeClass = "badge-revision";
+            
+            if (badgeClass) {
+                cell.innerHTML = `<span class="badge ${badgeClass}">${text}</span>`;
+            }
+        }
+    });
+});
