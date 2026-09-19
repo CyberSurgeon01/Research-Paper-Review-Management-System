@@ -22,7 +22,7 @@
             </div>
             <div class="form-group">
                 <label for="upload_date">Upload Date:</label>
-                <input type="date" id="upload_date" name="upload_date">
+                <input type="text" id="upload_date" name="upload_date" placeholder="dd-mm-yyyy">
             </div>
             <div class="form-group">
                 <label for="revised_file">Revised File:</label>
