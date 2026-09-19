@@ -1,4 +1,68 @@
-<?php session_start(); ?>
+<?php
+session_start();
+$module = 'final_decision';
+$primary_key = 'decision_id';
+
+if (!isset($_SESSION[$module])) {
+    $_SESSION[$module] = [];
+}
+
+// CRUD Functions
+function addRecord($data) {
+    global $module, $primary_key;
+    $id = $data[$primary_key] ?? uniqid();
+    unset($data['action']);
+    if ($id) {
+        $_SESSION[$module][$id] = $data;
+    }
+}
+
+function updateRecord($id, $data) {
+    global $module;
+    unset($data['action']);
+    if (isset($_SESSION[$module][$id])) {
+        $_SESSION[$module][$id] = array_merge($_SESSION[$module][$id], $data);
+    }
+}
+
+function deleteRecord($id) {
+    global $module;
+    if (isset($_SESSION[$module][$id])) {
+        unset($_SESSION[$module][$id]);
+    }
+}
+
+function getRecordList() {
+    global $module;
+    return $_SESSION[$module];
+}
+
+function getRecordDetails($id) {
+    global $module;
+    return $_SESSION[$module][$id] ?? null;
+}
+
+$success_msg = "";
+
+// Handle POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
+    $action = $_POST['action'];
+    $id = $_POST[$primary_key] ?? '';
+    
+    if (in_array($action, ['add', 'submit', 'save', 'upload', 'accept'])) {
+        addRecord($_POST);
+        $success_msg = "Record added successfully!";
+    } elseif ($action === 'update') {
+        updateRecord($id, $_POST);
+        $success_msg = "Record updated successfully!";
+    } elseif (in_array($action, ['delete', 'withdraw'])) {
+        deleteRecord($id);
+        $success_msg = "Record deleted successfully!";
+    }
+}
+
+$records = getRecordList();
+?>
 <?php include '../includes/header.php'; ?>
 <?php include '../includes/navbar.php'; ?>
 
@@ -41,6 +105,41 @@
                 <button type="reset" class="btn btn-danger">Reset</button>
             </div>
         </form>
+    </div>
+</div>
+
+
+<?php if ($success_msg): ?>
+<script>alert("<?= $success_msg ?>");</script>
+<?php endif; ?>
+
+<div class="card" style="margin-top: 20px; width: 90%; max-width: 1200px;">
+    <div class="card-header">
+        <h2><?= ucfirst(str_replace('_', ' ', $module)) ?> Records</h2>
+    </div>
+    <div class="card-body" style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left;">
+            <thead>
+                <tr style="background-color: #f4f5f7; border-bottom: 2px solid #ccc;">
+                    <?php if(!empty($records)): ?>
+                        <?php foreach(array_keys(reset($records)) as $key): ?>
+                            <th style="padding: 10px; border: 1px solid #eee;"><?= htmlspecialchars(ucwords(str_replace('_', ' ', $key))) ?></th>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <th style="padding: 10px;">No records found.</th>
+                    <?php endif; ?>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach($records as $rec): ?>
+                    <tr>
+                        <?php foreach($rec as $key => $val): ?>
+                            <td style="padding: 10px; border: 1px solid #eee;"><?= htmlspecialchars($val) ?></td>
+                        <?php endforeach; ?>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
     </div>
 </div>
 
