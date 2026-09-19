@@ -115,6 +115,9 @@ $records = getRecordList();
                 <label for="final_status">Final Status:</label>
                 <select id="final_status" name="final_status">
                     <option value="">Select final status</option>
+                    <option value="Accepted">Accepted</option>
+                    <option value="Further Revision">Further Revision</option>
+                    <option value="Rejected">Rejected</option>
                 </select>
             </div>
             <div class="form-group">
