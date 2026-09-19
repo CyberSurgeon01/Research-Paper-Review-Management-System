@@ -137,6 +137,9 @@ $records = getRecordList();
 </div>
 
 
+<?php if ($error_msg): ?>
+<script>alert("<?= htmlspecialchars($error_msg, ENT_QUOTES) ?>");</script>
+<?php endif; ?>
 <?php if ($success_msg): ?>
 <script>alert("<?= $success_msg ?>");</script>
 <?php endif; ?>
