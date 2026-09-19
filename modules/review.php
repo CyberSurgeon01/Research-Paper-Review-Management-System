@@ -12,8 +12,14 @@ function addRecord($data) {
     global $module, $primary_key;
     $id = $data[$primary_key] ?? uniqid();
     unset($data['action']);
+    
     if ($id) {
         $_SESSION[$module][$id] = $data;
+        
+        // Workflow 2: Admin assigns reviewer -> paper status changes to 'Under Review'
+        if (!empty($data['paper_id']) && isset($_SESSION['research_paper'][$data['paper_id']])) {
+            $_SESSION['research_paper'][$data['paper_id']]['status'] = 'Under Review';
+        }
     }
 }
 
