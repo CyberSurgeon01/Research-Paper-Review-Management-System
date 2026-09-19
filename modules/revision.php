@@ -12,8 +12,18 @@ function addRecord($data) {
     global $module, $primary_key;
     $id = $data[$primary_key] ?? uniqid();
     unset($data['action']);
+    
     if ($id) {
         $_SESSION[$module][$id] = $data;
+        
+        // Workflow 5: Author uploads Revision -> paper goes back to Submitted, increment version
+        if (!empty($data['paper_id']) && isset($_SESSION['research_paper'][$data['paper_id']])) {
+            $_SESSION['research_paper'][$data['paper_id']]['status'] = 'Submitted';
+            
+            $current_version = $_SESSION['research_paper'][$data['paper_id']]['version_number'] ?? 1;
+            $new_version = !empty($data['version_number']) ? $data['version_number'] : ($current_version + 1);
+            $_SESSION['research_paper'][$data['paper_id']]['version_number'] = $new_version;
+        }
     }
 }
 
