@@ -72,6 +72,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 }
 
 $records = getRecordList();
+if (isset($_SESSION['role']) && $_SESSION['role'] === 'Author') {
+    $my_papers = array_filter($_SESSION['research_paper'] ?? [], function($p) {
+        return $p['author_id'] === $_SESSION['user_id'];
+    });
+    $my_paper_ids = array_column($my_papers, 'paper_id');
+    $records = array_filter($records, function($r) use ($my_paper_ids) {
+        return in_array($r['paper_id'], $my_paper_ids);
+    });
+}
 ?>
 <?php include '../includes/header.php'; ?>
 <?php include '../includes/navbar.php'; ?>
