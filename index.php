@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once 'includes/mock_seeder.php';
 
 // Handle Logout
 if (isset($_GET['action']) && $_GET['action'] === 'logout') {
