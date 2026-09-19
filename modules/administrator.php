@@ -71,38 +71,40 @@ $records = getRecordList();
         <h2>Administrator</h2>
     </div>
     <div class="card-body">
+        <?php
+$current_record = [];
+if (isset($_SESSION['logged_in']) && $_SESSION['role'] === 'Administrator') {
+    $current_record = getRecordDetails($_SESSION['user_id']);
+}
+?>
         <form action="" method="post">
             <div class="form-group">
                 <label for="admin_id">Admin ID:</label>
-                <input type="text" id="admin_id" name="admin_id">
+                <input type="text" id="admin_id" name="admin_id" value="<?= htmlspecialchars($current_record['admin_id'] ?? '') ?>" readonly style="background-color: #eee;">
             </div>
             <div class="form-group">
                 <label for="admin_name">Admin Name:</label>
-                <input type="text" id="admin_name" name="admin_name">
+                <input type="text" id="admin_name" name="admin_name" value="<?= htmlspecialchars($current_record['admin_name'] ?? '') ?>">
             </div>
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" id="email" name="email">
+                <input type="email" id="email" name="email" value="<?= htmlspecialchars($current_record['email'] ?? '') ?>">
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password">
+                <input type="password" id="password" name="password" value="<?= htmlspecialchars($current_record['password'] ?? '') ?>">
             </div>
             <div class="form-group">
                 <label for="role">Role:</label>
                 <select id="role" name="role">
-                    <option value="Super Admin">Super Admin</option>
-                    <option value="Manager">Manager</option>
-                    <option value="Editor">Editor</option>
+                    <option value="Super Admin" <?= ($current_record['role'] ?? '') === 'Super Admin' ? 'selected' : '' ?>>Super Admin</option>
+                    <option value="Manager" <?= ($current_record['role'] ?? '') === 'Manager' ? 'selected' : '' ?>>Manager</option>
+                    <option value="Editor" <?= ($current_record['role'] ?? '') === 'Editor' ? 'selected' : '' ?>>Editor</option>
                 </select>
             </div>
             
             <div class="button-group">
-                <button type="submit" class="btn btn-primary" name="action" value="add">Login / Add</button>
-                <button type="button" class="btn btn-primary">Assign Reviewer</button>
-                <button type="button" class="btn btn-primary">Monitor Review Progress</button>
-                <button type="button" class="btn btn-primary">Issue Final Decision</button>
-                <button type="button" class="btn btn-primary">Generate Report</button>
+                <button type="submit" class="btn btn-primary" name="action" value="update">Update Profile</button>
             </div>
         </form>
     </div>
