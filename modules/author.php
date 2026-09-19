@@ -71,35 +71,40 @@ $records = getRecordList();
         <h2>Author</h2>
     </div>
     <div class="card-body">
+        <?php
+$current_record = [];
+if (isset($_SESSION['logged_in']) && $_SESSION['role'] === 'Author') {
+    $current_record = getRecordDetails($_SESSION['user_id']);
+}
+?>
         <form action="" method="post">
             <div class="form-group">
                 <label for="author_id">Author ID:</label>
-                <input type="text" id="author_id" name="author_id">
+                <input type="text" id="author_id" name="author_id" value="<?= htmlspecialchars($current_record['author_id'] ?? '') ?>" readonly style="background-color: #eee;">
             </div>
             <div class="form-group">
                 <label for="author_name">Author Name:</label>
-                <input type="text" id="author_name" name="author_name">
+                <input type="text" id="author_name" name="author_name" value="<?= htmlspecialchars($current_record['author_name'] ?? '') ?>">
             </div>
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" id="email" name="email">
+                <input type="email" id="email" name="email" value="<?= htmlspecialchars($current_record['email'] ?? '') ?>">
             </div>
             <div class="form-group">
                 <label for="affiliation">Affiliation:</label>
-                <input type="text" id="affiliation" name="affiliation">
+                <input type="text" id="affiliation" name="affiliation" value="<?= htmlspecialchars($current_record['affiliation'] ?? '') ?>">
             </div>
             <div class="form-group">
                 <label for="phone_number">Phone Number:</label>
-                <input type="tel" id="phone_number" name="phone_number">
+                <input type="tel" id="phone_number" name="phone_number" value="<?= htmlspecialchars($current_record['phone_number'] ?? '') ?>">
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password">
+                <input type="password" id="password" name="password" value="<?= htmlspecialchars($current_record['password'] ?? '') ?>">
             </div>
             
             <div class="button-group">
-                <button type="reset" class="btn btn-danger">Reset</button>
-                <button type="submit" class="btn btn-primary" name="action" value="add">Save / Register</button>
+                <button type="submit" class="btn btn-primary" name="action" value="update">Update Profile</button>
             </div>
         </form>
     </div>
