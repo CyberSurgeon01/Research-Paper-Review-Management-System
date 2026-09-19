@@ -12,6 +12,13 @@ function addRecord($data) {
     global $module, $primary_key;
     $id = $data[$primary_key] ?? uniqid();
     unset($data['action']);
+    
+    // Workflow 1: Author submits paper -> status = 'Submitted'
+    $data['status'] = 'Submitted';
+    if (empty($data['version_number'])) {
+        $data['version_number'] = 1;
+    }
+    
     if ($id) {
         $_SESSION[$module][$id] = $data;
     }
