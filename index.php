@@ -11,21 +11,20 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
 
 // Handle Login
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
-    $role = $_POST['role'] ?? '';
     $user_id = $_POST['user_id'] ?? '';
     $password = $_POST['password'] ?? '';
     
-    $is_valid = false;
+    $role = '';
     
-    if ($role === 'Author' && isset($_SESSION['author'][$user_id]) && $_SESSION['author'][$user_id]['password'] === $password) {
-        $is_valid = true;
-    } elseif ($role === 'Reviewer' && isset($_SESSION['reviewer'][$user_id]) && $_SESSION['reviewer'][$user_id]['password'] === $password) {
-        $is_valid = true;
-    } elseif ($role === 'Administrator' && isset($_SESSION['administrator'][$user_id]) && $_SESSION['administrator'][$user_id]['password'] === $password) {
-        $is_valid = true;
+    if (isset($_SESSION['author'][$user_id]) && $_SESSION['author'][$user_id]['password'] === $password) {
+        $role = 'Author';
+    } elseif (isset($_SESSION['reviewer'][$user_id]) && $_SESSION['reviewer'][$user_id]['password'] === $password) {
+        $role = 'Reviewer';
+    } elseif (isset($_SESSION['administrator'][$user_id]) && $_SESSION['administrator'][$user_id]['password'] === $password) {
+        $role = 'Administrator';
     }
     
-    if ($is_valid) {
+    if ($role !== '') {
         $_SESSION['logged_in'] = true;
         $_SESSION['role'] = $role;
         $_SESSION['user_id'] = $user_id;
@@ -35,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         elseif ($role === 'Administrator') header("Location: modules/administrator.php");
         exit;
     } else {
-        $error = "Invalid User ID, Role, or Password.";
+        $error = "Invalid User ID or Password.";
     }
 }
 ?>
@@ -89,15 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
                         <label for="password">Password:</label>
                         <input type="password" id="password" name="password" placeholder="Enter your password" required>
                     </div>
-                    <div class="form-group">
-                        <label for="role">Role:</label>
-                        <select id="role" name="role" required>
-                            <option value="">Select Role</option>
-                            <option value="Author">Author</option>
-                            <option value="Reviewer">Reviewer</option>
-                            <option value="Administrator">Administrator</option>
-                        </select>
-                    </div>
+
                     <div class="button-group">
                         <button type="submit" name="login" value="1" class="btn btn-primary">Login</button>
                     </div>
