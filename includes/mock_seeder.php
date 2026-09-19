@@ -29,6 +29,18 @@ if (!isset($_SESSION['seeded'])) {
     $_SESSION['revision'] = [];
     $_SESSION['final_decision'] = [];
     
+
     $_SESSION['seeded'] = true;
+}
+
+// FORCE default passwords in case of old session cache
+if (isset($_SESSION['reviewer']['R001']) && empty($_SESSION['reviewer']['R001']['password'])) {
+    $_SESSION['reviewer']['R001']['password'] = 'reviewer123';
+}
+if (isset($_SESSION['reviewer']['R002']) && empty($_SESSION['reviewer']['R002']['password'])) {
+    $_SESSION['reviewer']['R002']['password'] = 'reviewer123';
+}
+if (isset($_SESSION['administrator']['ADMIN1']) && empty($_SESSION['administrator']['ADMIN1']['password'])) {
+    $_SESSION['administrator']['ADMIN1']['password'] = 'admin123';
 }
 ?>
