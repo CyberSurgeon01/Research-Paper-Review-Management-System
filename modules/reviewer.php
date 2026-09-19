@@ -71,41 +71,48 @@ $records = getRecordList();
         <h2>Reviewer</h2>
     </div>
     <div class="card-body">
+        <?php
+$current_record = [];
+if (isset($_SESSION['logged_in']) && $_SESSION['role'] === 'Reviewer') {
+    $current_record = getRecordDetails($_SESSION['user_id']);
+}
+?>
         <form action="" method="post">
             <div class="form-group">
                 <label for="reviewer_id">Reviewer ID:</label>
-                <input type="text" id="reviewer_id" name="reviewer_id" placeholder="Enter reviewer ID">
+                <input type="text" id="reviewer_id" name="reviewer_id" value="<?= htmlspecialchars($current_record['reviewer_id'] ?? '') ?>" readonly style="background-color: #eee;">
             </div>
             <div class="form-group">
                 <label for="reviewer_name">Reviewer Name:</label>
-                <input type="text" id="reviewer_name" name="reviewer_name" placeholder="Enter reviewer name">
+                <input type="text" id="reviewer_name" name="reviewer_name" value="<?= htmlspecialchars($current_record['reviewer_name'] ?? '') ?>">
             </div>
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" id="email" name="email" placeholder="Enter email">
+                <input type="email" id="email" name="email" value="<?= htmlspecialchars($current_record['email'] ?? '') ?>">
             </div>
             <div class="form-group">
                 <label for="expertise">Expertise:</label>
-                <input type="text" id="expertise" name="expertise" placeholder="Enter expertise">
+                <input type="text" id="expertise" name="expertise" value="<?= htmlspecialchars($current_record['expertise'] ?? '') ?>">
             </div>
             <div class="form-group">
                 <label for="designation">Designation:</label>
-                <input type="text" id="designation" name="designation" placeholder="Enter designation">
+                <input type="text" id="designation" name="designation" value="<?= htmlspecialchars($current_record['designation'] ?? '') ?>">
             </div>
             <div class="form-group">
                 <label for="affiliation">Affiliation:</label>
-                <input type="text" id="affiliation" name="affiliation" placeholder="Enter affiliation">
+                <input type="text" id="affiliation" name="affiliation" value="<?= htmlspecialchars($current_record['affiliation'] ?? '') ?>">
             </div>
             <div class="form-group">
                 <label for="phone_number">Phone Number:</label>
-                <input type="tel" id="phone_number" name="phone_number" placeholder="Enter phone number">
+                <input type="tel" id="phone_number" name="phone_number" value="<?= htmlspecialchars($current_record['phone_number'] ?? '') ?>">
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" value="<?= htmlspecialchars($current_record['password'] ?? '') ?>">
             </div>
             
             <div class="button-group">
-                <button type="submit" class="btn btn-primary" name="action" value="add">Login / Add</button>
                 <button type="submit" class="btn btn-primary" name="action" value="update">Update Profile</button>
-                <button type="submit" class="btn btn-primary" name="action" value="accept">Accept Invitation</button>
-                <button type="submit" class="btn btn-danger" name="action" value="submit_review">Submit Review</button>
             </div>
         </form>
     </div>
