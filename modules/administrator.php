@@ -3,6 +3,12 @@ session_start();
 $module = 'administrator';
 $primary_key = 'admin_id';
 
+if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']) {
+    header("Location: ../index.php");
+    exit;
+}
+
+
 if (!isset($_SESSION[$module])) {
     $_SESSION[$module] = [];
 }

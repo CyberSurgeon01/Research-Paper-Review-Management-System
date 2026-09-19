@@ -3,6 +3,12 @@ session_start();
 $module = 'revision';
 $primary_key = 'revision_id';
 
+if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']) {
+    header("Location: ../index.php");
+    exit;
+}
+
+
 if (!isset($_SESSION[$module])) {
     $_SESSION[$module] = [];
 }
