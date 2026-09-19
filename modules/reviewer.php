@@ -125,7 +125,13 @@ if (isset($_SESSION['logged_in']) && $_SESSION['role'] === 'Reviewer') {
 
 
 <?php if ($success_msg): ?>
-<script>alert("<?= $success_msg ?>");</script>
+    <div id="toast" style="position: fixed; top: 20px; right: 20px; background-color: #28a745; color: white; padding: 15px 25px; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: flex; align-items: center; gap: 12px; z-index: 9999; font-weight: bold; font-size: 14px; animation: slideIn 0.3s ease-out forwards, fadeOut 0.5s ease-in forwards 2.5s;">
+        <span style="font-size: 18px;">✓</span> <?= htmlspecialchars($success_msg) ?>
+    </div>
+    <style>
+        @keyframes slideIn { from { transform: translateX(150%); } to { transform: translateX(0); } }
+        @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; visibility: hidden; } }
+    </style>
 <?php endif; ?>
 
 <div class="card" style="margin-top: 20px; width: 90%; max-width: 1200px;">
