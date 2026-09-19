@@ -55,200 +55,169 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RPRMS - Welcome</title>
+    <title>RPRMS</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <style>
         body {
             background-color: #f4f5f7;
-            margin: 0;
-            padding: 0;
             display: flex;
             flex-direction: column;
-            align-items: stretch;
-        }
-        .hero {
-            background-color: #0b1a45;
-            color: #ffffff;
-            padding: 60px 20px;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .hero h1 {
-            font-size: 38px;
-            margin-bottom: 20px;
-            font-weight: bold;
-        }
-        .hero p {
-            font-size: 18px;
-            max-width: 800px;
-            margin: 0 auto;
-            line-height: 1.6;
-            color: #d1d8f0;
-        }
-        .landing-container {
-            display: flex;
+            align-items: center;
             justify-content: center;
-            align-items: flex-start;
-            gap: 40px;
-            max-width: 1200px;
-            margin: 50px auto;
-            padding: 0 20px;
-            flex-wrap: wrap;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
         }
-        .features {
-            flex: 1;
-            min-width: 350px;
-            background: #ffffff;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        .minimal-header {
+            text-align: center;
+            margin-bottom: 30px;
         }
-        .features h3 {
+        .minimal-header h1 {
             color: #0b1a45;
-            border-bottom: 2px solid #0b1a45;
-            padding-bottom: 12px;
-            margin-top: 0;
-            font-size: 22px;
-            margin-bottom: 25px;
+            margin: 0 0 5px 0;
+            font-size: 26px;
         }
-        .features ul {
-            list-style: none;
-            padding: 0;
+        .minimal-header p {
+            color: #555;
             margin: 0;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-        .features li {
-            margin-bottom: 20px;
-            display: flex;
-            align-items: flex-start;
-            font-size: 15px;
-            line-height: 1.5;
-            color: #444;
-        }
-        .features li::before {
-            content: '✓';
-            color: #28a745;
-            font-weight: bold;
-            margin-right: 15px;
-            font-size: 18px;
-            margin-top: -2px;
-        }
-        .login-section {
-            flex: 0 0 420px;
+        .card {
             width: 100%;
-        }
-        /* Override generic card margin for landing */
-        .login-section .card {
-            margin: 0;
-            width: 100%;
-            box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+            max-width: 380px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             border: none;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #fff;
         }
-        /* Dashboard styling override */
-        .dashboard-container {
+        .card-header {
+            background-color: #0b1a45;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .card-header h2 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: normal;
+        }
+        .card-body {
+            padding: 30px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 13px;
+        }
+        .form-group input {
             width: 100%;
-            max-width: 650px;
-            margin: 50px auto;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+            background-color: #fafafa;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #0b1a45;
+            background-color: #fff;
+        }
+        .btn-primary {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #0b1a45;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 15px;
+            cursor: pointer;
+            margin-top: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+        .btn-danger {
+            background-color: #d9534f;
         }
     </style>
 </head>
 <body>
 
     <?php if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']): ?>
-    <!-- HERO SECTION -->
-    <div class="hero">
-        <h1>Research Paper Review Management System</h1>
-        <p>A centralized platform for authors to submit cutting-edge research, reviewers to provide peer-reviewed feedback, and administrators to orchestrate the publication workflow seamlessly.</p>
+    
+    <div class="minimal-header">
+        <h1>Research Paper Review</h1>
+        <p>Management System</p>
     </div>
 
-    <!-- MAIN LANDING CONTENT -->
-    <div class="landing-container">
-        
-        <!-- FEATURES INFO -->
-        <div class="features">
-            <h3>System Capabilities</h3>
-            <ul>
-                <li><strong>Streamlined Submissions:</strong> Authors can effortlessly submit research papers, upload revisions, and track publication status in real-time.</li>
-                <li><strong>Expert Peer Review:</strong> A dedicated portal allows reviewers to securely access assigned manuscripts and submit detailed evaluation scores and recommendations.</li>
-                <li><strong>Administrative Oversight:</strong> Complete administrative control for assigning reviewers, tracking review progress, and issuing final publication decisions.</li>
-                <li><strong>Automated Workflows:</strong> Smart status tracking automatically progresses papers from 'Submitted' to 'Under Review' to 'Final Decision'.</li>
-                <li><strong>Role-Based Security:</strong> Strict access control ensures that sensitive research data remains private and securely partitioned.</li>
-            </ul>
+    <div class="card">
+        <div class="card-header">
+            <h2>Sign In</h2>
         </div>
-
-        <!-- LOGIN CARD -->
-        <div class="login-section">
-            <div class="card">
-                <div class="card-header" style="background-color: #0b1a45; padding: 20px;">
-                    <h2 style="font-size: 24px;">Secure Portal Access</h2>
-                </div>
-                <div class="card-body">
-                    <form action="index.php" method="post">
-                        <?php if (isset($error)): ?>
-                            <div style="background-color: #ffe6e6; border-left: 4px solid #ff4d4d; color: #cc0000; padding: 12px; margin-bottom: 20px; font-size: 14px; border-radius: 4px;">
-                                <?= htmlspecialchars($error) ?>
-                            </div>
-                        <?php endif; ?>
-                        
-                        <div class="form-group" style="flex-direction: column; align-items: flex-start; margin-bottom: 20px;">
-                            <label for="user_id" style="margin-bottom: 8px;">User ID</label>
-                            <input type="text" id="user_id" name="user_id" placeholder="Enter your ID (e.g., A001)" required style="width: 100%;">
-                        </div>
-                        
-                        <div class="form-group" style="flex-direction: column; align-items: flex-start; margin-bottom: 25px;">
-                            <label for="password" style="margin-bottom: 8px;">Password</label>
-                            <div style="width: 100%; position: relative; display: flex;">
-                                <input type="password" id="password" name="password" placeholder="Enter your password" required style="width: 100%; padding-right: 35px;">
-                                <span id="togglePassword" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); cursor: pointer; opacity: 0.6; user-select: none;" title="Toggle Password Visibility">
-                                    👁️
-                                </span>
-                            </div>
-                        </div>
-
-                        <button type="submit" name="login" value="1" class="btn btn-primary" style="width: 100%; padding: 12px; font-size: 16px;">Secure Login</button>
-                    </form>
-                    
-                    <div style="margin-top: 30px; padding: 15px; background-color: #f8f9fa; border: 1px dashed #ced4da; font-size: 13px; color: #495057; border-radius: 6px;">
-                        <strong>Mock System Test Credentials:</strong><br><br>
-                        • <strong>Author:</strong> ID = A001, Pass = author123<br>
-                        • <strong>Reviewer:</strong> ID = R001, Pass = reviewer123<br>
-                        • <strong>Administrator:</strong> ID = ADMIN1, Pass = admin123
+        <div class="card-body">
+            <form action="index.php" method="post">
+                <?php if (isset($error)): ?>
+                    <div style="color: #d9534f; text-align: center; margin-bottom: 15px; font-size: 13px; padding: 8px; background: #fdf0f0; border-radius: 4px;">
+                        <?= htmlspecialchars($error) ?>
                     </div>
+                <?php endif; ?>
+                
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label for="user_id">User ID</label>
+                    <input type="text" id="user_id" name="user_id" placeholder="e.g., A001" required>
                 </div>
+                
+                <div class="form-group" style="margin-bottom: 25px; position: relative;">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="••••••••" required style="padding-right: 35px;">
+                    <span id="togglePassword" style="position: absolute; right: 12px; top: 35px; cursor: pointer; opacity: 0.5; user-select: none;">👁️</span>
+                </div>
+
+                <button type="submit" name="login" value="1" class="btn-primary">Login</button>
+            </form>
+            
+            <div style="margin-top: 25px; text-align: center; font-size: 11px; color: #999; line-height: 1.6;">
+                Mock Credentials:<br>
+                A001 (author123) | R001 (reviewer123) | ADMIN1 (admin123)
             </div>
         </div>
-
     </div>
 
     <?php else: ?>
     
-    <!-- DASHBOARD VIEW FOR LOGGED IN USERS -->
-    <div class="dashboard-container">
-        <div class="card" style="width: 100%;">
-            <div class="card-header">
-                <h2>System Dashboard</h2>
-            </div>
-            <div class="card-body">
-                <div style="text-align: center;">
-                    <h3 style="margin-top: 0; color: #0b1a45;">Welcome back, <?= htmlspecialchars($_SESSION['user_id']) ?></h3>
-                    <p style="margin-bottom: 30px; color: #555;">Current Active Role: <strong><?= htmlspecialchars($_SESSION['role']) ?></strong></p>
-                    
-                    <div class="button-group" style="flex-direction: column; align-items: center; gap: 12px;">
-                        <?php if ($_SESSION['role'] === 'Author'): ?>
-                            <a href="modules/author.php" class="btn btn-primary" style="width: 280px; text-decoration: none; padding: 12px;">Update Author Profile</a>
-                            <a href="modules/research_paper.php" class="btn btn-primary" style="width: 280px; text-decoration: none; padding: 12px;">Submit / View Papers</a>
-                            <a href="modules/revision.php" class="btn btn-primary" style="width: 280px; text-decoration: none; padding: 12px;">Manage Document Revisions</a>
-                        <?php elseif ($_SESSION['role'] === 'Reviewer'): ?>
-                            <a href="modules/reviewer.php" class="btn btn-primary" style="width: 280px; text-decoration: none; padding: 12px;">Update Reviewer Profile</a>
-                            <a href="modules/review.php" class="btn btn-primary" style="width: 280px; text-decoration: none; padding: 12px;">Submit Assigned Reviews</a>
-                        <?php elseif ($_SESSION['role'] === 'Administrator'): ?>
-                            <a href="modules/administrator.php" class="btn btn-primary" style="width: 280px; text-decoration: none; padding: 12px;">Update Admin Profile</a>
-                            <a href="modules/research_field.php" class="btn btn-primary" style="width: 280px; text-decoration: none; padding: 12px;">Manage Research Fields</a>
-                            <a href="modules/final_decision.php" class="btn btn-primary" style="width: 280px; text-decoration: none; padding: 12px;">Issue Final Decisions</a>
-                        <?php endif; ?>
-                        
-                        <a href="index.php?action=logout" class="btn btn-danger" style="width: 280px; text-decoration: none; margin-top: 25px; padding: 12px;">Secure Logout</a>
-                    </div>
-                </div>
+    <div class="minimal-header">
+        <h1>System Dashboard</h1>
+        <p>Logged in as: <strong><?= htmlspecialchars($_SESSION['role']) ?></strong></p>
+    </div>
+
+    <div class="card" style="max-width: 400px;">
+        <div class="card-body" style="text-align: center; padding: 40px 30px;">
+            <h3 style="margin-top: 0; color: #0b1a45; margin-bottom: 30px; font-size: 20px;">Welcome back, <?= htmlspecialchars($_SESSION['user_id']) ?></h3>
+            
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+                <?php if ($_SESSION['role'] === 'Author'): ?>
+                    <a href="modules/author.php" class="btn-primary" style="text-decoration: none; box-sizing: border-box;">Author Profile</a>
+                    <a href="modules/research_paper.php" class="btn-primary" style="text-decoration: none; box-sizing: border-box;">Submit / View Papers</a>
+                    <a href="modules/revision.php" class="btn-primary" style="text-decoration: none; box-sizing: border-box;">Manage Revisions</a>
+                <?php elseif ($_SESSION['role'] === 'Reviewer'): ?>
+                    <a href="modules/reviewer.php" class="btn-primary" style="text-decoration: none; box-sizing: border-box;">Reviewer Profile</a>
+                    <a href="modules/review.php" class="btn-primary" style="text-decoration: none; box-sizing: border-box;">Submit Assigned Reviews</a>
+                <?php elseif ($_SESSION['role'] === 'Administrator'): ?>
+                    <a href="modules/administrator.php" class="btn-primary" style="text-decoration: none; box-sizing: border-box;">Admin Profile</a>
+                    <a href="modules/research_field.php" class="btn-primary" style="text-decoration: none; box-sizing: border-box;">Manage Research Fields</a>
+                    <a href="modules/final_decision.php" class="btn-primary" style="text-decoration: none; box-sizing: border-box;">Issue Final Decisions</a>
+                <?php endif; ?>
+                
+                <a href="index.php?action=logout" class="btn-primary btn-danger" style="text-decoration: none; margin-top: 20px; box-sizing: border-box;">Logout</a>
             </div>
         </div>
     </div>
