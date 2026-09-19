@@ -34,7 +34,7 @@
             </div>
             <div class="form-group">
                 <label for="submission_date">Submission Date:</label>
-                <input type="date" id="submission_date" name="submission_date">
+                <input type="text" id="submission_date" name="submission_date" placeholder="dd-mm-yyyy">
             </div>
             <div class="form-group">
                 <label for="status">Status:</label>
