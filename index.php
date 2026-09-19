@@ -86,7 +86,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
                     
                     <div class="form-group">
                         <label for="password">Password:</label>
-                        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                        <div style="flex: 1; position: relative; display: flex;">
+                            <input type="password" id="password" name="password" placeholder="Enter your password" required style="width: 100%; padding-right: 30px;">
+                            <span id="togglePassword" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; opacity: 0.7; user-select: none;" title="Toggle Password Visibility">
+                                👁️
+                            </span>
+                        </div>
                     </div>
 
                     <div class="button-group">
@@ -103,5 +108,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
             <?php endif; ?>
         </div>
     </div>
+    <script>
+        const togglePassword = document.getElementById('togglePassword');
+        const password = document.getElementById('password');
+        
+        if(togglePassword && password) {
+            togglePassword.addEventListener('click', function () {
+                if (password.type === 'password') {
+                    password.type = 'text';
+                    this.innerHTML = '🙈';
+                } else {
+                    password.type = 'password';
+                    this.innerHTML = '👁️';
+                }
+            });
+        }
+    </script>
 </body>
 </html>
