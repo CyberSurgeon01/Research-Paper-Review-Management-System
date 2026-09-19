@@ -159,3 +159,28 @@ function fillForm(record) {
         form.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 }
+
+// Enhance fillForm to support split-view architectures
+const originalFillForm = fillForm;
+fillForm = function(record) {
+    const form = document.querySelector('form');
+    if (!form) {
+        // Form is not on this page (split view). Save to sessionStorage and redirect.
+        sessionStorage.setItem('editRecord', JSON.stringify(record));
+        window.location.href = window.location.pathname + '?view=form';
+        return;
+    }
+    originalFillForm(record);
+};
+
+// Auto-fill on load if coming from split-view
+document.addEventListener('DOMContentLoaded', () => {
+    const recordStr = sessionStorage.getItem('editRecord');
+    if (recordStr && document.querySelector('form')) {
+        try {
+            const record = JSON.parse(recordStr);
+            originalFillForm(record);
+        } catch (e) {}
+        sessionStorage.removeItem('editRecord');
+    }
+});
