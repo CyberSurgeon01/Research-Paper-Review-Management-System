@@ -12,6 +12,9 @@ function addRecord($data) {
     global $module, $primary_key;
     $id = !empty($data[$primary_key]) ? $data[$primary_key] : uniqid();
     unset($data['action']);
+    if (isset($_SESSION['role']) && $_SESSION['role'] === 'Author' && empty($data['author_id'])) {
+        $data['author_id'] = $_SESSION['user_id'];
+    }
     
     // Workflow 1: Author submits paper -> status = 'Submitted'
     $data['status'] = 'Submitted';
@@ -27,6 +30,9 @@ function addRecord($data) {
 function updateRecord($id, $data) {
     global $module;
     unset($data['action']);
+    if (isset($_SESSION['role']) && $_SESSION['role'] === 'Author' && empty($data['author_id'])) {
+        $data['author_id'] = $_SESSION['user_id'];
+    }
     if (isset($_SESSION[$module][$id])) {
         $_SESSION[$module][$id] = array_merge($_SESSION[$module][$id], $data);
     }

@@ -12,6 +12,9 @@ function addRecord($data) {
     global $module, $primary_key;
     $id = !empty($data[$primary_key]) ? $data[$primary_key] : uniqid();
     unset($data['action']);
+    if (isset($_SESSION['role']) && $_SESSION['role'] === 'Reviewer' && empty($data['reviewer_id'])) {
+        $data['reviewer_id'] = $_SESSION['user_id'];
+    }
     
     if ($id) {
         $_SESSION[$module][$id] = $data;
@@ -26,6 +29,9 @@ function addRecord($data) {
 function updateRecord($id, $data) {
     global $module;
     unset($data['action']);
+    if (isset($_SESSION['role']) && $_SESSION['role'] === 'Reviewer' && empty($data['reviewer_id'])) {
+        $data['reviewer_id'] = $_SESSION['user_id'];
+    }
     if (isset($_SESSION[$module][$id])) {
         $_SESSION[$module][$id] = array_merge($_SESSION[$module][$id], $data);
     }
