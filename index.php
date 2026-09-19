@@ -1,6 +1,23 @@
 <?php
 session_start();
 
+// Seed Default Mock Users
+if (!isset($_SESSION['author'])) {
+    $_SESSION['author'] = [
+        'A001' => ['author_id' => 'A001', 'author_name' => 'Alice Author', 'email' => 'alice@example.com', 'password' => 'author123']
+    ];
+}
+if (!isset($_SESSION['reviewer'])) {
+    $_SESSION['reviewer'] = [
+        'R001' => ['reviewer_id' => 'R001', 'reviewer_name' => 'Dr. Bob Reviewer', 'email' => 'bob@example.com', 'password' => 'reviewer123']
+    ];
+}
+if (!isset($_SESSION['administrator'])) {
+    $_SESSION['administrator'] = [
+        'ADMIN1' => ['admin_id' => 'ADMIN1', 'admin_name' => 'Charlie Admin', 'email' => 'admin@example.com', 'password' => 'admin123', 'role' => 'Super Admin']
+    ];
+}
+
 // Handle Logout
 if (isset($_GET['action']) && $_GET['action'] === 'logout') {
     session_destroy();
@@ -12,22 +29,29 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     $role = $_POST['role'] ?? '';
     $user_id = $_POST['user_id'] ?? '';
+    $password = $_POST['password'] ?? '';
     
-    if ($role && $user_id) {
+    $is_valid = false;
+    
+    if ($role === 'Author' && isset($_SESSION['author'][$user_id]) && $_SESSION['author'][$user_id]['password'] === $password) {
+        $is_valid = true;
+    } elseif ($role === 'Reviewer' && isset($_SESSION['reviewer'][$user_id]) && $_SESSION['reviewer'][$user_id]['password'] === $password) {
+        $is_valid = true;
+    } elseif ($role === 'Administrator' && isset($_SESSION['administrator'][$user_id]) && $_SESSION['administrator'][$user_id]['password'] === $password) {
+        $is_valid = true;
+    }
+    
+    if ($is_valid) {
         $_SESSION['logged_in'] = true;
         $_SESSION['role'] = $role;
         $_SESSION['user_id'] = $user_id;
         
-        if ($role === 'Author') {
-            header("Location: modules/author.php");
-        } elseif ($role === 'Reviewer') {
-            header("Location: modules/reviewer.php");
-        } elseif ($role === 'Administrator') {
-            header("Location: modules/administrator.php");
-        }
+        if ($role === 'Author') header("Location: modules/author.php");
+        elseif ($role === 'Reviewer') header("Location: modules/reviewer.php");
+        elseif ($role === 'Administrator') header("Location: modules/administrator.php");
         exit;
     } else {
-        $error = "Please enter User ID and select a Role.";
+        $error = "Invalid User ID, Role, or Password.";
     }
 }
 ?>
@@ -76,6 +100,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
                         <label for="user_id">User ID:</label>
                         <input type="text" id="user_id" name="user_id" placeholder="Enter your ID (e.g., A001)" required>
                     </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                    </div>
                     <div class="form-group">
                         <label for="role">Role:</label>
                         <select id="role" name="role" required>
@@ -89,6 +118,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
                         <button type="submit" name="login" value="1" class="btn btn-primary">Login</button>
                     </div>
                 </form>
+                <div style="margin-top: 20px; padding: 15px; background-color: #f9f9f9; border: 1px dashed #ccc; font-size: 13px; color: #555;">
+                    <strong>Mock System Default Credentials:</strong><br>
+                    Author: ID = <b>A001</b>, Password = <b>author123</b><br>
+                    Reviewer: ID = <b>R001</b>, Password = <b>reviewer123</b><br>
+                    Administrator: ID = <b>ADMIN1</b>, Password = <b>admin123</b>
+                </div>
+
             <?php endif; ?>
         </div>
     </div>
