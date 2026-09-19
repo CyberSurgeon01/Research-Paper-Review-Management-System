@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 $records = getRecordList();
 if (isset($_SESSION['role']) && $_SESSION['role'] === 'Author') {
     $records = array_filter($records, function($r) {
-        return $r['author_id'] === $_SESSION['user_id'];
+        return (isset($r['author_id']) && $r['author_id'] === $_SESSION['user_id']);
     });
 }
 ?>

@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 $records = getRecordList();
 if (isset($_SESSION['role']) && $_SESSION['role'] === 'Administrator') {
     $records = array_filter($records, function($r) {
-        return $r['admin_id'] === $_SESSION['user_id'];
+        return (isset($r['admin_id']) && $r['admin_id'] === $_SESSION['user_id']);
     });
 }
 ?>
