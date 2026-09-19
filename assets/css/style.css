@@ -119,3 +119,19 @@ nav ul li a {
 .btn-danger {
     background-color: #c00000; /* Red */
 }
+
+/* Status Badges */
+.badge {
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    display: inline-block;
+    text-align: center;
+}
+.badge-submitted { background-color: #6c757d; }
+.badge-review { background-color: #17a2b8; }
+.badge-accepted { background-color: #28a745; }
+.badge-rejected { background-color: #dc3545; }
+.badge-revision { background-color: #ffc107; color: #000; }
