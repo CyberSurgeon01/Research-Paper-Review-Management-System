@@ -123,7 +123,13 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Reviewer') {
             </div>
             <div class="form-group">
                 <label for="recommendation">Recommendation:</label>
-                <input type="text" id="recommendation" name="recommendation">
+                <select id="recommendation" name="recommendation">
+                    <option value="">Select recommendation</option>
+                    <option value="Accept">Accept</option>
+                    <option value="Minor Revision">Minor Revision</option>
+                    <option value="Major Revision">Major Revision</option>
+                    <option value="Reject">Reject</option>
+                </select>
             </div>
             <div class="form-group">
                 <label for="reviewer_comments">Reviewer Comments:</label>
