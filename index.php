@@ -1,35 +1,55 @@
 <?php
 session_start();
+require_once 'config.php';
 
-// Handle Logout
 if (isset($_GET['action']) && $_GET['action'] === 'logout') {
     session_destroy();
     header("Location: index.php");
     exit;
 }
 
-// Handle Login
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     $role = $_POST['role'] ?? '';
     $user_id = $_POST['user_id'] ?? '';
     
     if ($role && $user_id) {
-        $_SESSION['logged_in'] = true;
-        $_SESSION['role'] = $role;
-        $_SESSION['user_id'] = $user_id;
+        $table = '';
+        $pk = '';
+        if ($role === 'Author') { $table = 'AUTHOR'; $pk = 'AUTHOR_ID'; }
+        elseif ($role === 'Reviewer') { $table = 'REVIEWER'; $pk = 'REVIEWER_ID'; }
+        elseif ($role === 'Administrator') { $table = 'ADMINISTRATOR'; $pk = 'ADMIN_ID'; }
         
-        if ($role === 'Author') {
-            header("Location: modules/author.php");
-        } elseif ($role === 'Reviewer') {
-            header("Location: modules/reviewer.php");
-        } elseif ($role === 'Administrator') {
-            header("Location: modules/administrator.php");
+        if ($conn) {
+            $sql = "SELECT * FROM $table WHERE $pk = :id";
+            $stmt = oci_parse($conn, $sql);
+            oci_bind_by_name($stmt, ":id", $user_id);
+            oci_execute($stmt);
+            $row = oci_fetch_assoc($stmt);
+        } else {
+            $row = false;
         }
-        exit;
+        
+        if ($row) {
+            $_SESSION['logged_in'] = true;
+            $_SESSION['role'] = $role;
+            $_SESSION['user_id'] = $user_id;
+            
+            if ($role === 'Author') header("Location: modules/author.php");
+            elseif ($role === 'Reviewer') header("Location: modules/reviewer.php");
+            elseif ($role === 'Administrator') header("Location: modules/administrator.php");
+            exit;
+        } else {
+            if (!$conn) {
+                $error = "DB Connection Error: Cannot authenticate user without Oracle database.";
+            } else {
+                $error = "Invalid User ID or Role. Please check your credentials.";
+            }
+        }
     } else {
         $error = "Please enter User ID and select a Role.";
     }
 }
+?>
 ?>
 <!DOCTYPE html>
 <html lang="en">
