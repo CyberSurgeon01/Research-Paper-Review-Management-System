@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             $_POST['assignment_status'] = 'Completed';
         }
         updateRecord($id, $_POST);
-        $success_msg = "Record updated successfully!";
+        $review_completed = true;
     } elseif (in_array($action, ['delete', 'withdraw'])) {
         deleteRecord($id);
         $success_msg = "Record deleted successfully!";
