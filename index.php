@@ -459,6 +459,15 @@ $page = $_GET['page'] ?? 'login';
                 <span style="font-size: 13px; color: #666; text-transform: uppercase; letter-spacing: 1px;"><?= htmlspecialchars($_SESSION['role']) ?> Portal</span>
             </div>
 
+            
+            <?php 
+            $pending_invites = 0;
+            if ($_SESSION['role'] === 'Reviewer') {
+                $pending_invites = count(array_filter($_SESSION['review'] ?? [], function($r) {
+                    return (isset($r['reviewer_id']) && $r['reviewer_id'] === $_SESSION['user_id'] && isset($r['assignment_status']) && $r['assignment_status'] === 'Invited');
+                }));
+            }
+            ?>
             <?php if ($_SESSION['role'] === 'Author'): ?>
             
             <div class="dash-section-title">Account</div>
@@ -501,6 +510,13 @@ $page = $_GET['page'] ?? 'login';
             
             <div class="dash-section-title">Account</div>
             <div class="dash-grid">
+                <a href="modules/review_invitations.php" class="dash-tile <?= $pending_invites > 0 ? 'success-tile' : '' ?>">
+                    <div class="tile-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
+                    <div class="tile-content">
+                        <h4>Review Invitations <?= $pending_invites > 0 ? '<span class="badge" style="background-color: #dc3545; color: #fff; padding: 2px 6px; font-size: 10px;">' . $pending_invites . '</span>' : '' ?></h4>
+                        <p>Accept or decline new assignments</p>
+                    </div>
+                </a>
                 <a href="modules/reviewer.php" class="dash-tile">
                     <div class="tile-icon"><i class="fa-solid fa-user"></i></div>
                     <div class="tile-content">
