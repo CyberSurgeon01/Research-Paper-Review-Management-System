@@ -4,7 +4,7 @@ require_once '../includes/mock_seeder.php';
 $module = 'reviewer';
 $primary_key = 'reviewer_id';
 
-if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']) {
+if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in'] || $_SESSION['role'] !== 'Reviewer') {
     header("Location: ../index.php");
     exit;
 }

@@ -4,7 +4,7 @@ require_once '../includes/mock_seeder.php';
 $module = 'administrator';
 $primary_key = 'admin_id';
 
-if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']) {
+if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in'] || $_SESSION['role'] !== 'Administrator') {
     header("Location: ../index.php");
     exit;
 }
