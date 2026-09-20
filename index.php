@@ -85,6 +85,7 @@ $page = $_GET['page'] ?? 'login';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RPRMS — Research Paper Review Management System</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         body {
             justify-content: center;
@@ -372,36 +373,36 @@ $page = $_GET['page'] ?? 'login';
             <?php if ($_SESSION['role'] === 'Author'): ?>
             
             <p style="font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; font-weight: bold;">Account</p>
-            <a href="modules/author.php" class="btn btn-primary dash-link" style="display: flex; align-items: center; gap: 10px; justify-content: flex-start; padding-left: 20px; text-decoration: none;">👤 My Profile</a>
+            <a href="modules/author.php" class="btn btn-primary dash-link" style="display: flex; align-items: center; gap: 10px; justify-content: flex-start; padding-left: 20px; text-decoration: none;"><i class="fa-solid fa-user"></i> My Profile</a>
             
             <p style="font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 1px; margin: 20px 0 12px; font-weight: bold;">Research</p>
-            <a href="modules/research_paper.php" class="btn btn-primary dash-link" style="display: flex; align-items: center; gap: 10px; justify-content: flex-start; padding-left: 20px; text-decoration: none;">📄 Submit / View Papers</a>
-            <a href="modules/revision.php" class="btn btn-primary dash-link" style="display: flex; align-items: center; gap: 10px; justify-content: flex-start; padding-left: 20px; text-decoration: none;">🔄 Manage Revisions</a>
+            <a href="modules/research_paper.php" class="btn btn-primary dash-link" style="display: flex; align-items: center; gap: 10px; justify-content: flex-start; padding-left: 20px; text-decoration: none;"><i class="fa-solid fa-file-lines"></i> Submit / View Papers</a>
+            <a href="modules/revision.php" class="btn btn-primary dash-link" style="display: flex; align-items: center; gap: 10px; justify-content: flex-start; padding-left: 20px; text-decoration: none;"><i class="fa-solid fa-arrows-rotate"></i> Manage Revisions</a>
 
             <?php elseif ($_SESSION['role'] === 'Reviewer'): ?>
             
             <p style="font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; font-weight: bold;">Account</p>
-            <a href="modules/reviewer.php" class="btn btn-primary dash-link" style="display: flex; align-items: center; gap: 10px; justify-content: flex-start; padding-left: 20px; text-decoration: none;">👤 My Profile</a>
+            <a href="modules/reviewer.php" class="btn btn-primary dash-link" style="display: flex; align-items: center; gap: 10px; justify-content: flex-start; padding-left: 20px; text-decoration: none;"><i class="fa-solid fa-user"></i> My Profile</a>
             
             <p style="font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 1px; margin: 20px 0 12px; font-weight: bold;">Reviews</p>
-            <a href="modules/review.php" class="btn btn-primary dash-link" style="display: flex; align-items: center; gap: 10px; justify-content: flex-start; padding-left: 20px; text-decoration: none;">📝 Assigned Reviews</a>
+            <a href="modules/review.php" class="btn btn-primary dash-link" style="display: flex; align-items: center; gap: 10px; justify-content: flex-start; padding-left: 20px; text-decoration: none;"><i class="fa-solid fa-pen-to-square"></i> Assigned Reviews</a>
 
             <?php elseif ($_SESSION['role'] === 'Administrator'): ?>
             
             <p style="font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; font-weight: bold;">Account</p>
-            <a href="modules/administrator.php" class="btn btn-primary dash-link" style="display: flex; align-items: center; gap: 10px; justify-content: flex-start; padding-left: 20px; text-decoration: none;">👤 My Profile</a>
+            <a href="modules/administrator.php" class="btn btn-primary dash-link" style="display: flex; align-items: center; gap: 10px; justify-content: flex-start; padding-left: 20px; text-decoration: none;"><i class="fa-solid fa-user-shield"></i> My Profile</a>
             
             <p style="font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 1px; margin: 20px 0 12px; font-weight: bold;">User Management</p>
-            <a href="modules/add_reviewer.php" class="btn btn-primary dash-link" style="display: flex; align-items: center; gap: 10px; justify-content: flex-start; padding-left: 20px; text-decoration: none; background-color: #28a745;">➕ Add New Reviewer</a>
+            <a href="modules/add_reviewer.php" class="btn btn-primary dash-link" style="display: flex; align-items: center; gap: 10px; justify-content: flex-start; padding-left: 20px; text-decoration: none; background-color: #28a745;"><i class="fa-solid fa-user-plus"></i> Add New Reviewer</a>
             
             <p style="font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 1px; margin: 20px 0 12px; font-weight: bold;">Management</p>
-            <a href="modules/research_field.php" class="btn btn-primary dash-link" style="display: flex; align-items: center; gap: 10px; justify-content: flex-start; padding-left: 20px; text-decoration: none;">📚 Manage Research Fields</a>
-            <a href="modules/final_decision.php" class="btn btn-primary dash-link" style="display: flex; align-items: center; gap: 10px; justify-content: flex-start; padding-left: 20px; text-decoration: none;">⚖️ Issue Final Decisions</a>
+            <a href="modules/research_field.php" class="btn btn-primary dash-link" style="display: flex; align-items: center; gap: 10px; justify-content: flex-start; padding-left: 20px; text-decoration: none;"><i class="fa-solid fa-book"></i> Manage Research Fields</a>
+            <a href="modules/final_decision.php" class="btn btn-primary dash-link" style="display: flex; align-items: center; gap: 10px; justify-content: flex-start; padding-left: 20px; text-decoration: none;"><i class="fa-solid fa-gavel"></i> Issue Final Decisions</a>
 
             <?php endif; ?>
 
             <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid #eee;">
-                <a href="index.php?action=logout" class="btn btn-danger dash-link" style="margin-bottom: 0; text-decoration: none;">Logout</a>
+                <a href="index.php?action=logout" class="btn btn-danger dash-link" style="margin-bottom: 0; text-decoration: none;"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
             </div>
         </div>
         
