@@ -3,7 +3,8 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-if (!isset($_SESSION['seeded'])) {
+$seed_version = 2;
+if (!isset($_SESSION['seeded']) || $_SESSION['seed_version'] < $seed_version) {
     $_SESSION['author'] = [
         'A001' => ['author_id' => 'A001', 'author_name' => 'Alice Author', 'email' => 'alice@example.com', 'affiliation' => 'Tech University', 'phone_number' => '1234567890', 'password' => 'author123'],
         'A002' => ['author_id' => 'A002', 'author_name' => 'Bob Writer', 'email' => 'bob@example.com', 'affiliation' => 'Science Institute', 'phone_number' => '0987654321', 'password' => 'author123']
@@ -58,6 +59,7 @@ if (!isset($_SESSION['seeded'])) {
     
 
     $_SESSION['seeded'] = true;
+    $_SESSION['seed_version'] = $seed_version;
 }
 
 // FORCE default passwords in case of old session cache
