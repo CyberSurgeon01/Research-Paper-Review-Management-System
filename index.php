@@ -4,7 +4,9 @@ require_once 'includes/mock_seeder.php';
 
 // Handle Logout
 if (isset($_GET['action']) && $_GET['action'] === 'logout') {
-    session_destroy();
+    unset($_SESSION['logged_in']);
+    unset($_SESSION['role']);
+    unset($_SESSION['user_id']);
     header("Location: index.php");
     exit;
 }
