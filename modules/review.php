@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once '../includes/mock_seeder.php';
 $module = 'review';
 $primary_key = 'review_id';
 

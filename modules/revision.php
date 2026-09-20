@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once '../includes/mock_seeder.php';
 $module = 'revision';
 $primary_key = 'revision_id';
 

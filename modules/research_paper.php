@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once '../includes/mock_seeder.php';
 $module = 'research_paper';
 $primary_key = 'paper_id';
 
