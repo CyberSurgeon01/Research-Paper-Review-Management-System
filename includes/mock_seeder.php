@@ -3,7 +3,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-$seed_version = 3;
+$seed_version = 4;
 if (!isset($_SESSION['seeded']) || $_SESSION['seed_version'] < $seed_version) {
     $_SESSION['author'] = [
         'A001' => ['author_id' => 'A001', 'author_name' => 'Alice Author', 'email' => 'alice@example.com', 'affiliation' => 'Tech University', 'phone_number' => '1234567890', 'password' => 'author123'],
@@ -52,7 +52,13 @@ if (!isset($_SESSION['seeded']) || $_SESSION['seed_version'] < $seed_version) {
         'RV009' => ['review_id' => 'RV009', 'paper_id' => 'P009', 'reviewer_id' => 'R002', 'review_date' => '15-08-2026', 'review_score' => '10', 'recommendation' => 'Accept', 'reviewer_comments' => 'State-of-the-art YOLO results, publish as is.'],
         'RV010' => ['review_id' => 'RV010', 'paper_id' => 'P010', 'reviewer_id' => 'R002', 'review_date' => '10-08-2026', 'review_score' => '8', 'recommendation' => 'Accept', 'reviewer_comments' => 'Solid WCAG compliance study with actionable insights.']
     ];
-    $_SESSION['revision'] = [];
+    $_SESSION['revision'] = [
+        'REV001' => ['revision_id' => 'REV001', 'paper_id' => 'P004', 'version_number' => '2', 'upload_date' => '25-07-2026', 'revised_file' => '/uploads/p004_v2.pdf', 'remarks' => 'Added more simulation results as requested.'],
+        'REV002' => ['revision_id' => 'REV002', 'paper_id' => 'P008', 'version_number' => '2', 'upload_date' => '15-05-2026', 'revised_file' => '/uploads/p008_v2.pdf', 'remarks' => 'Included monolithic vs microservices comparison.'],
+        'REV003' => ['revision_id' => 'REV003', 'paper_id' => 'P008', 'version_number' => '3', 'upload_date' => '01-06-2026', 'revised_file' => '/uploads/p008_v3.pdf', 'remarks' => 'Final revision with all reviewer feedback addressed.'],
+        'REV004' => ['revision_id' => 'REV004', 'paper_id' => 'P004', 'version_number' => '3', 'upload_date' => '10-08-2026', 'revised_file' => '/uploads/p004_v3.pdf', 'remarks' => 'Extended error correction benchmarks.'],
+        'REV005' => ['revision_id' => 'REV005', 'paper_id' => 'P001', 'version_number' => '2', 'upload_date' => '20-09-2026', 'revised_file' => '/uploads/p001_v2.pdf', 'remarks' => 'Minor formatting and citation fixes.']
+    ];
     $_SESSION['final_decision'] = [
         'D001' => ['decision_id' => 'D001', 'paper_id' => 'P001', 'admin_id' => 'ADMIN1', 'final_status' => 'Accepted', 'decision_date' => '15-09-2026', 'comments' => 'Outstanding research with strong methodology.'],
         'D002' => ['decision_id' => 'D002', 'paper_id' => 'P002', 'admin_id' => 'ADMIN1', 'final_status' => 'Rejected', 'decision_date' => '16-09-2026', 'comments' => 'Insufficient experimental validation.'],
