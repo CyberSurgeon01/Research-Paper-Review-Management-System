@@ -263,6 +263,92 @@ $page = $_GET['page'] ?? 'login';
             font-size: 12px;
             color: #aaa;
         }
+        /* Dashboard Layout */
+        .dashboard-card {
+            width: 750px !important;
+            max-width: 95vw !important;
+        }
+        .dash-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .dash-tile {
+            background: #fff;
+            border: 1px solid #e1e5eb;
+            border-radius: 8px;
+            padding: 20px;
+            text-decoration: none;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+        .dash-tile:hover {
+            border-color: #0b1a45;
+            box-shadow: 0 6px 15px rgba(11, 26, 69, 0.08);
+            transform: translateY(-2px);
+        }
+        .dash-tile .tile-icon {
+            background: #f0f4f8;
+            color: #0b1a45;
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+        .dash-tile:hover .tile-icon {
+            background: #0b1a45;
+            color: #fff;
+        }
+        .dash-tile.success-tile .tile-icon {
+            background: #e6f4ea;
+            color: #1e8e3e;
+        }
+        .dash-tile.success-tile:hover .tile-icon {
+            background: #1e8e3e;
+            color: #fff;
+        }
+        .dash-tile.success-tile:hover {
+            border-color: #1e8e3e;
+            box-shadow: 0 6px 15px rgba(30, 142, 62, 0.1);
+        }
+        .dash-tile .tile-content {
+            text-align: left;
+        }
+        .dash-tile .tile-content h4 {
+            margin: 0 0 5px 0;
+            font-size: 15px;
+            color: #0b1a45;
+        }
+        .dash-tile .tile-content p {
+            margin: 0;
+            font-size: 12px;
+            color: #777;
+            line-height: 1.3;
+        }
+        .dash-section-title {
+            font-size: 11px; 
+            color: #888; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            margin: 30px 0 15px; 
+            font-weight: 700;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
+            text-align: left;
+        }
+        .dash-section-title:first-of-type {
+            margin-top: 0;
+        }
     </style>
 </head>
 <body>
@@ -272,7 +358,7 @@ $page = $_GET['page'] ?? 'login';
         <p>Research Paper Review Management System</p>
     </div>
 
-    <div class="card login-card">
+    <div class="card login-card <?= isset($_SESSION['logged_in']) && $_SESSION['logged_in'] ? 'dashboard-card' : '' ?>">
         <?php if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']): ?>
         
         <div class="card-header">
@@ -373,37 +459,105 @@ $page = $_GET['page'] ?? 'login';
 
             <?php if ($_SESSION['role'] === 'Author'): ?>
             
-            <p style="font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; font-weight: bold;">Account</p>
-            <a href="modules/author.php" class="btn btn-primary dash-link" style="display: flex; align-items: center; gap: 10px; justify-content: flex-start; padding-left: 20px; text-decoration: none;"><i class="fa-solid fa-user"></i> My Profile</a>
+            <div class="dash-section-title">Account</div>
+            <div class="dash-grid">
+                <a href="modules/author.php" class="dash-tile">
+                    <div class="tile-icon"><i class="fa-solid fa-user"></i></div>
+                    <div class="tile-content">
+                        <h4>My Profile</h4>
+                        <p>View and update your account details</p>
+                    </div>
+                </a>
+            </div>
             
-            <p style="font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 1px; margin: 20px 0 12px; font-weight: bold;">Research</p>
-            <a href="modules/research_paper.php" class="btn btn-primary dash-link" style="display: flex; align-items: center; gap: 10px; justify-content: flex-start; padding-left: 20px; text-decoration: none;"><i class="fa-solid fa-file-lines"></i> Submit / View Papers</a>
-            <a href="modules/revision.php" class="btn btn-primary dash-link" style="display: flex; align-items: center; gap: 10px; justify-content: flex-start; padding-left: 20px; text-decoration: none;"><i class="fa-solid fa-arrows-rotate"></i> Manage Revisions</a>
+            <div class="dash-section-title">Research</div>
+            <div class="dash-grid">
+                <a href="modules/research_paper.php" class="dash-tile">
+                    <div class="tile-icon"><i class="fa-solid fa-file-lines"></i></div>
+                    <div class="tile-content">
+                        <h4>Submit / View Papers</h4>
+                        <p>Manage your research submissions</p>
+                    </div>
+                </a>
+                <a href="modules/revision.php" class="dash-tile">
+                    <div class="tile-icon"><i class="fa-solid fa-arrows-rotate"></i></div>
+                    <div class="tile-content">
+                        <h4>Manage Revisions</h4>
+                        <p>Upload revised paper versions</p>
+                    </div>
+                </a>
+            </div>
 
             <?php elseif ($_SESSION['role'] === 'Reviewer'): ?>
             
-            <p style="font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; font-weight: bold;">Account</p>
-            <a href="modules/reviewer.php" class="btn btn-primary dash-link" style="display: flex; align-items: center; gap: 10px; justify-content: flex-start; padding-left: 20px; text-decoration: none;"><i class="fa-solid fa-user"></i> My Profile</a>
+            <div class="dash-section-title">Account</div>
+            <div class="dash-grid">
+                <a href="modules/reviewer.php" class="dash-tile">
+                    <div class="tile-icon"><i class="fa-solid fa-user"></i></div>
+                    <div class="tile-content">
+                        <h4>My Profile</h4>
+                        <p>View and update your account details</p>
+                    </div>
+                </a>
+            </div>
             
-            <p style="font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 1px; margin: 20px 0 12px; font-weight: bold;">Reviews</p>
-            <a href="modules/review.php" class="btn btn-primary dash-link" style="display: flex; align-items: center; gap: 10px; justify-content: flex-start; padding-left: 20px; text-decoration: none;"><i class="fa-solid fa-pen-to-square"></i> Assigned Reviews</a>
+            <div class="dash-section-title">Reviews</div>
+            <div class="dash-grid">
+                <a href="modules/review.php" class="dash-tile">
+                    <div class="tile-icon"><i class="fa-solid fa-pen-to-square"></i></div>
+                    <div class="tile-content">
+                        <h4>Assigned Reviews</h4>
+                        <p>Evaluate papers and submit scores</p>
+                    </div>
+                </a>
+            </div>
 
             <?php elseif ($_SESSION['role'] === 'Administrator'): ?>
             
-            <p style="font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; font-weight: bold;">Account</p>
-            <a href="modules/administrator.php" class="btn btn-primary dash-link" style="display: flex; align-items: center; gap: 10px; justify-content: flex-start; padding-left: 20px; text-decoration: none;"><i class="fa-solid fa-user-shield"></i> My Profile</a>
+            <div class="dash-section-title">Account</div>
+            <div class="dash-grid">
+                <a href="modules/administrator.php" class="dash-tile">
+                    <div class="tile-icon"><i class="fa-solid fa-user-shield"></i></div>
+                    <div class="tile-content">
+                        <h4>Admin Profile</h4>
+                        <p>View and update your admin details</p>
+                    </div>
+                </a>
+            </div>
             
-            <p style="font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 1px; margin: 20px 0 12px; font-weight: bold;">User Management</p>
-            <a href="modules/add_reviewer.php" class="btn btn-primary dash-link" style="display: flex; align-items: center; gap: 10px; justify-content: flex-start; padding-left: 20px; text-decoration: none; background-color: #28a745;"><i class="fa-solid fa-user-plus"></i> Add New Reviewer</a>
+            <div class="dash-section-title">User Management</div>
+            <div class="dash-grid">
+                <a href="modules/add_reviewer.php" class="dash-tile success-tile">
+                    <div class="tile-icon"><i class="fa-solid fa-user-plus"></i></div>
+                    <div class="tile-content">
+                        <h4 style="color: #1e8e3e;">Add New Reviewer</h4>
+                        <p>Register new reviewer accounts</p>
+                    </div>
+                </a>
+            </div>
             
-            <p style="font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 1px; margin: 20px 0 12px; font-weight: bold;">Management</p>
-            <a href="modules/research_field.php" class="btn btn-primary dash-link" style="display: flex; align-items: center; gap: 10px; justify-content: flex-start; padding-left: 20px; text-decoration: none;"><i class="fa-solid fa-book"></i> Manage Research Fields</a>
-            <a href="modules/final_decision.php" class="btn btn-primary dash-link" style="display: flex; align-items: center; gap: 10px; justify-content: flex-start; padding-left: 20px; text-decoration: none;"><i class="fa-solid fa-gavel"></i> Issue Final Decisions</a>
+            <div class="dash-section-title">Management</div>
+            <div class="dash-grid">
+                <a href="modules/research_field.php" class="dash-tile">
+                    <div class="tile-icon"><i class="fa-solid fa-book"></i></div>
+                    <div class="tile-content">
+                        <h4>Manage Research Fields</h4>
+                        <p>Configure paper categories</p>
+                    </div>
+                </a>
+                <a href="modules/final_decision.php" class="dash-tile">
+                    <div class="tile-icon"><i class="fa-solid fa-gavel"></i></div>
+                    <div class="tile-content">
+                        <h4>Issue Final Decisions</h4>
+                        <p>Accept or reject reviewed papers</p>
+                    </div>
+                </a>
+            </div>
 
             <?php endif; ?>
 
-            <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid #eee;">
-                <a href="index.php?action=logout" class="btn btn-danger dash-link" style="margin-bottom: 0; text-decoration: none;"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+            <div style="margin-top: 30px; padding-top: 25px; border-top: 1px solid #eee; text-align: center;">
+                <a href="index.php?action=logout" class="btn btn-danger" style="text-decoration: none; padding: 12px 30px; border-radius: 6px; font-weight: bold; letter-spacing: 0.5px; box-shadow: 0 4px 10px rgba(220,53,69,0.2);"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
             </div>
         </div>
         
