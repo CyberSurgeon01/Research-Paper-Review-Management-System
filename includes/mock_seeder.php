@@ -3,7 +3,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-$seed_version = 2;
+$seed_version = 3;
 if (!isset($_SESSION['seeded']) || $_SESSION['seed_version'] < $seed_version) {
     $_SESSION['author'] = [
         'A001' => ['author_id' => 'A001', 'author_name' => 'Alice Author', 'email' => 'alice@example.com', 'affiliation' => 'Tech University', 'phone_number' => '1234567890', 'password' => 'author123'],
@@ -41,7 +41,16 @@ if (!isset($_SESSION['seeded']) || $_SESSION['seed_version'] < $seed_version) {
         'P010' => ['paper_id' => 'P010', 'author_id' => 'A002', 'field_id' => 'F010', 'paper_title' => 'Accessible Web Interfaces', 'abstract_text' => 'WCAG compliance study.', 'keywords' => 'HCI, Accessibility', 'submission_date' => '15-04-2026', 'status' => 'Accepted', 'file_path' => '/uploads/p010.pdf', 'version_number' => 1]
     ];
     $_SESSION['review'] = [
-        'RV001' => ['review_id' => 'RV001', 'paper_id' => 'P001', 'reviewer_id' => 'R001', 'review_date' => '10-09-2026', 'review_score' => '8', 'recommendation' => 'Accept', 'reviewer_comments' => 'Excellent paper, well researched.']
+        'RV001' => ['review_id' => 'RV001', 'paper_id' => 'P001', 'reviewer_id' => 'R001', 'review_date' => '10-09-2026', 'review_score' => '8', 'recommendation' => 'Accept', 'reviewer_comments' => 'Excellent paper, well researched.'],
+        'RV002' => ['review_id' => 'RV002', 'paper_id' => 'P002', 'reviewer_id' => 'R001', 'review_date' => '12-09-2026', 'review_score' => '4', 'recommendation' => 'Reject', 'reviewer_comments' => 'Weak experimental design, lacks novelty.'],
+        'RV003' => ['review_id' => 'RV003', 'paper_id' => 'P003', 'reviewer_id' => 'R001', 'review_date' => '08-09-2026', 'review_score' => '9', 'recommendation' => 'Accept', 'reviewer_comments' => 'Strong methodology and clear results.'],
+        'RV004' => ['review_id' => 'RV004', 'paper_id' => 'P004', 'reviewer_id' => 'R001', 'review_date' => '05-09-2026', 'review_score' => '6', 'recommendation' => 'Major Revision', 'reviewer_comments' => 'Needs more simulation data and comparisons.'],
+        'RV005' => ['review_id' => 'RV005', 'paper_id' => 'P005', 'reviewer_id' => 'R001', 'review_date' => '01-09-2026', 'review_score' => '7', 'recommendation' => 'Minor Revision', 'reviewer_comments' => 'Good work but missing related work section.'],
+        'RV006' => ['review_id' => 'RV006', 'paper_id' => 'P006', 'reviewer_id' => 'R002', 'review_date' => '28-08-2026', 'review_score' => '3', 'recommendation' => 'Reject', 'reviewer_comments' => 'Threat model is poorly defined.'],
+        'RV007' => ['review_id' => 'RV007', 'paper_id' => 'P007', 'reviewer_id' => 'R002', 'review_date' => '25-08-2026', 'review_score' => '9', 'recommendation' => 'Accept', 'reviewer_comments' => 'Impressive real-world evaluation on IoT devices.'],
+        'RV008' => ['review_id' => 'RV008', 'paper_id' => 'P008', 'reviewer_id' => 'R002', 'review_date' => '20-08-2026', 'review_score' => '5', 'recommendation' => 'Major Revision', 'reviewer_comments' => 'Needs comparison with monolithic architecture.'],
+        'RV009' => ['review_id' => 'RV009', 'paper_id' => 'P009', 'reviewer_id' => 'R002', 'review_date' => '15-08-2026', 'review_score' => '10', 'recommendation' => 'Accept', 'reviewer_comments' => 'State-of-the-art YOLO results, publish as is.'],
+        'RV010' => ['review_id' => 'RV010', 'paper_id' => 'P010', 'reviewer_id' => 'R002', 'review_date' => '10-08-2026', 'review_score' => '8', 'recommendation' => 'Accept', 'reviewer_comments' => 'Solid WCAG compliance study with actionable insights.']
     ];
     $_SESSION['revision'] = [];
     $_SESSION['final_decision'] = [
