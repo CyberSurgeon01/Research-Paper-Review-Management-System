@@ -39,13 +39,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_reviewer'])) {
     }
 }
 ?>
+<?php $view = $_GET['view'] ?? 'list'; ?>
 <?php include '../includes/header.php'; ?>
 <?php include '../includes/navbar.php'; ?>
 
 <div class="card">
+    <?php if ($view === "form"): ?>
     <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; padding-right: 30px;">
         <h2>Add New Reviewer</h2>
-        <a href="../index.php" class="btn btn-primary" style="background-color: #6c757d; text-decoration: none;">&#8592; Back to Dashboard</a>
+        <a href="?view=list" class="btn btn-primary" style="background-color: #6c757d; text-decoration: none;">&#8592; Back to List</a>
     </div>
     <div class="card-body">
         <?php if ($success_msg): ?>
@@ -99,7 +101,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_reviewer'])) {
             </div>
         </form>
     </div>
+    </div>
 </div>
+<?php else: ?>
+<div class="card" style="margin-top: 20px; width: 90%; max-width: 1200px;">
+    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; padding-right: 30px;">
+        <h2>Reviewer Directory</h2>
+        <div>
+            <a href="?view=form" class="btn btn-primary" style="background-color: #28a745; text-decoration: none; margin-right: 10px;">+ Add New Reviewer</a>
+            <a href="../index.php" class="btn btn-primary" style="background-color: #6c757d; text-decoration: none;">&#8592; Dashboard</a>
+        </div>
+    </div>
+    <div class="card-body" style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left;">
+            <thead>
+                <tr style="background-color: #f4f5f7; border-bottom: 2px solid #ccc;">
+                    <th style="padding: 10px; border: 1px solid #eee;">ID</th>
+                    <th style="padding: 10px; border: 1px solid #eee;">Name</th>
+                    <th style="padding: 10px; border: 1px solid #eee;">Email</th>
+                    <th style="padding: 10px; border: 1px solid #eee;">Expertise</th>
+                    <th style="padding: 10px; border: 1px solid #eee;">Affiliation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($_SESSION['reviewer'] as $r): ?>
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #eee;"><?= htmlspecialchars($r['reviewer_id']) ?></td>
+                    <td style="padding: 10px; border: 1px solid #eee;"><?= htmlspecialchars($r['reviewer_name']) ?></td>
+                    <td style="padding: 10px; border: 1px solid #eee;"><?= htmlspecialchars($r['email']) ?></td>
+                    <td style="padding: 10px; border: 1px solid #eee;"><?= htmlspecialchars($r['expertise'] ?? 'N/A') ?></td>
+                    <td style="padding: 10px; border: 1px solid #eee;"><?= htmlspecialchars($r['affiliation'] ?? 'N/A') ?></td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+<?php endif; ?>
 
 <?php include '../includes/footer.php'; ?>
 
