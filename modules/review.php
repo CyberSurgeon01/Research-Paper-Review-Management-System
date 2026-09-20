@@ -164,6 +164,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Reviewer') {
         <a href="?view=form" class="btn btn-primary" style="background-color: #28a745; text-decoration: none;">+ Add New Review</a>
     </div>
     <div class="card-body" style="overflow-x: auto;">
+        <div style="margin-bottom: 15px;">
+            <input type="text" id="searchInput" placeholder="Search by Review ID or Paper ID..." style="padding: 10px; width: 100%; max-width: 400px; border: 1px solid #ccc; border-radius: 4px;" onkeyup="searchTable()">
+        </div>
         <table style="width: 100%; border-collapse: collapse; text-align: left;">
             <thead>
                 <tr style="background-color: #f4f5f7; border-bottom: 2px solid #ccc;">
@@ -194,4 +197,15 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Reviewer') {
 </div>
 
 <?php endif; ?>
+
+<script>
+function searchTable() {
+    let input = document.getElementById("searchInput").value.toUpperCase();
+    let rows = document.querySelectorAll("tbody tr");
+    rows.forEach(row => {
+        let textContent = row.textContent || row.innerText;
+        row.style.display = textContent.toUpperCase().indexOf(input) > -1 ? "" : "none";
+    });
+}
+</script>
 <?php include '../includes/footer.php'; ?>
