@@ -64,6 +64,7 @@ CREATE TABLE Review (
     review_score NUMBER,
     recommendation VARCHAR2(50),
     reviewer_comments CLOB,
+    assignment_status VARCHAR2(50) DEFAULT 'Invited',
     CONSTRAINT fk_review_paper FOREIGN KEY (paper_id) REFERENCES Research_Paper(paper_id) ON DELETE CASCADE,
     CONSTRAINT fk_review_reviewer FOREIGN KEY (reviewer_id) REFERENCES Reviewer(reviewer_id) ON DELETE CASCADE
 );
@@ -90,3 +91,4 @@ CREATE TABLE Final_Decision (
     CONSTRAINT fk_decision_paper FOREIGN KEY (paper_id) REFERENCES Research_Paper(paper_id) ON DELETE CASCADE,
     CONSTRAINT fk_decision_admin FOREIGN KEY (admin_id) REFERENCES Administrator(admin_id) ON DELETE SET NULL
 );
+

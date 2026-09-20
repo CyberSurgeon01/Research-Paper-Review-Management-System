@@ -44,11 +44,11 @@ INSERT INTO Research_Paper (paper_id, author_id, field_id, paper_title, abstract
 VALUES ('P003', 'A001', 'F003', 'Zero Trust Architecture', 'Modern network security principles.', 'Security, Zero Trust, Networking', TO_DATE('01-09-2026', 'DD-MM-YYYY'), 'Revision Required', '/uploads/p003.pdf', 1);
 
 -- 6. Reviews
-INSERT INTO Review (review_id, paper_id, reviewer_id, review_date, review_score, recommendation, reviewer_comments) 
-VALUES ('RV001', 'P001', 'R001', TO_DATE('20-08-2026', 'DD-MM-YYYY'), 9, 'Accept', 'Excellent application of ML in healthcare.');
+INSERT INTO Review (review_id, paper_id, reviewer_id, review_date, review_score, recommendation, reviewer_comments, assignment_status) 
+VALUES ('RV001', 'P001', 'R001', TO_DATE('20-08-2026', 'DD-MM-YYYY'), 9, 'Accept', 'Excellent application of ML in healthcare.', 'Completed');
 
-INSERT INTO Review (review_id, paper_id, reviewer_id, review_date, review_score, recommendation, reviewer_comments) 
-VALUES ('RV002', 'P003', 'R002', TO_DATE('10-09-2026', 'DD-MM-YYYY'), 6, 'Major Revision', 'Needs more real-world implementation examples.');
+INSERT INTO Review (review_id, paper_id, reviewer_id, review_date, review_score, recommendation, reviewer_comments, assignment_status) 
+VALUES ('RV002', 'P003', 'R002', TO_DATE('10-09-2026', 'DD-MM-YYYY'), 6, 'Major Revision', 'Needs more real-world implementation examples.', 'Completed');
 
 -- 7. Revisions
 INSERT INTO Revision (revision_id, paper_id, version_number, upload_date, revised_file, remarks) 
@@ -59,3 +59,4 @@ INSERT INTO Final_Decision (decision_id, paper_id, admin_id, final_status, decis
 VALUES ('D001', 'P001', 'ADMIN1', 'Accepted', TO_DATE('25-08-2026', 'DD-MM-YYYY'), 'Outstanding research. Approved for publication.');
 
 COMMIT;
+
