@@ -479,6 +479,13 @@ $page = $_GET['page'] ?? 'login';
                         <p>Manage your research submissions</p>
                     </div>
                 </a>
+                <a href="modules/author_reviews.php" class="dash-tile">
+                    <div class="tile-icon"><i class="fa-solid fa-comments"></i></div>
+                    <div class="tile-content">
+                        <h4>View Paper Reviews</h4>
+                        <p>Read reviewer feedback</p>
+                    </div>
+                </a>
                 <a href="modules/revision.php" class="dash-tile">
                     <div class="tile-icon"><i class="fa-solid fa-arrows-rotate"></i></div>
                     <div class="tile-content">
@@ -543,6 +550,13 @@ $page = $_GET['page'] ?? 'login';
                     <div class="tile-content">
                         <h4>Manage Research Fields</h4>
                         <p>Configure paper categories</p>
+                    </div>
+                </a>
+                <a href="modules/assign_reviewer.php" class="dash-tile">
+                    <div class="tile-icon"><i class="fa-solid fa-tasks"></i></div>
+                    <div class="tile-content">
+                        <h4>Assign Reviewers</h4>
+                        <p>Route papers for review</p>
                     </div>
                 </a>
                 <a href="modules/final_decision.php" class="dash-tile">
