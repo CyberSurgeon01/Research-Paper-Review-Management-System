@@ -120,7 +120,7 @@ $records = getRecordList();
             </div>
             <div class="form-group">
                 <label for="final_status">Final Status:</label>
-                <select id="final_status" name="final_status">
+                <select id="final_status" name="final_status" required>
                     <option value="">Select final status</option>
                     <option value="Accepted">Accepted</option>
                     <option value="Further Revision">Further Revision</option>
@@ -129,7 +129,7 @@ $records = getRecordList();
             </div>
             <div class="form-group">
                 <label for="decision_date">Decision Date:</label>
-                <input type="text" id="decision_date" name="decision_date" placeholder="dd-mm-yyyy">
+                <input type="text" id="decision_date" name="decision_date" required placeholder="dd-mm-yyyy">
             </div>
             <div class="form-group">
                 <label for="comments">Comments:</label>

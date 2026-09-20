@@ -114,7 +114,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Author') {
             </div>
             <div class="form-group">
                 <label for="version_number">Version Number:</label>
-                <input type="number" id="version_number" name="version_number" placeholder="Enter version number">
+                <input type="number" id="version_number" name="version_number" required placeholder="Enter version number">
             </div>
             <div class="form-group">
                 <label for="upload_date">Upload Date:</label>
@@ -122,7 +122,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Author') {
             </div>
             <div class="form-group">
                 <label for="revised_file">Revised File:</label>
-                <input type="text" id="revised_file" name="revised_file" placeholder="Enter revised file path">
+                <input type="text" id="revised_file" name="revised_file" required placeholder="Enter revised file path">
             </div>
             <div class="form-group">
                 <label for="remarks">Remarks:</label>

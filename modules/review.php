@@ -116,15 +116,15 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Reviewer') {
             </div>
             <div class="form-group">
                 <label for="review_date">Review Date:</label>
-                <input type="text" id="review_date" name="review_date" placeholder="dd-mm-yyyy">
+                <input type="text" id="review_date" name="review_date" required placeholder="dd-mm-yyyy">
             </div>
             <div class="form-group">
                 <label for="review_score">Review Score:</label>
-                <input type="number" id="review_score" name="review_score">
+                <input type="number" id="review_score" name="review_score" required>
             </div>
             <div class="form-group">
                 <label for="recommendation">Recommendation:</label>
-                <select id="recommendation" name="recommendation">
+                <select id="recommendation" name="recommendation" required>
                     <option value="">Select recommendation</option>
                     <option value="Accept">Accept</option>
                     <option value="Minor Revision">Minor Revision</option>
@@ -134,7 +134,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Reviewer') {
             </div>
             <div class="form-group">
                 <label for="reviewer_comments">Reviewer Comments:</label>
-                <textarea id="reviewer_comments" name="reviewer_comments"></textarea>
+                <textarea id="reviewer_comments" name="reviewer_comments" required></textarea>
             </div>
             
             <div class="button-group">

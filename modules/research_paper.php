@@ -117,11 +117,11 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Author') {
             </div>
             <div class="form-group">
                 <label for="paper_title">Paper Title:</label>
-                <input type="text" id="paper_title" name="paper_title" placeholder="Enter paper title">
+                <input type="text" id="paper_title" name="paper_title" required placeholder="Enter paper title">
             </div>
             <div class="form-group">
                 <label for="abstract_text">Abstract Text:</label>
-                <textarea id="abstract_text" name="abstract_text" placeholder="Enter abstract text"></textarea>
+                <textarea id="abstract_text" name="abstract_text" required placeholder="Enter abstract text"></textarea>
             </div>
             <div class="form-group">
                 <label for="keywords">Keywords:</label>
@@ -133,7 +133,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Author') {
             </div>
             <div class="form-group">
                 <label for="status">Status:</label>
-                <select id="status" name="status">
+                <select id="status" name="status" required>
                     <option value="">Select status</option>
                     <option value="Submitted">Submitted</option>
                     <option value="Under Review">Under Review</option>
