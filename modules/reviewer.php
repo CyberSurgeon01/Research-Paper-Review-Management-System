@@ -8,19 +8,8 @@ if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']) {
     exit;
 }
 
-
 if (!isset($_SESSION[$module])) {
     $_SESSION[$module] = [];
-}
-
-// CRUD Functions
-function addRecord($data) {
-    global $module, $primary_key;
-    $id = !empty($data[$primary_key]) ? $data[$primary_key] : uniqid();
-    unset($data['action']);
-    if ($id) {
-        $_SESSION[$module][$id] = $data;
-    }
 }
 
 function updateRecord($id, $data) {
@@ -31,18 +20,6 @@ function updateRecord($id, $data) {
     }
 }
 
-function deleteRecord($id) {
-    global $module;
-    if (isset($_SESSION[$module][$id])) {
-        unset($_SESSION[$module][$id]);
-    }
-}
-
-function getRecordList() {
-    global $module;
-    return $_SESSION[$module];
-}
-
 function getRecordDetails($id) {
     global $module;
     return $_SESSION[$module][$id] ?? null;
@@ -50,44 +27,24 @@ function getRecordDetails($id) {
 
 $success_msg = "";
 
-// Handle POST
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
-    $action = $_POST['action'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'update') {
     $id = $_POST[$primary_key] ?? '';
-    
-    if (in_array($action, ['add', 'submit', 'save', 'upload', 'accept'])) {
-        addRecord($_POST);
-        $success_msg = "Record added successfully!";
-    } elseif ($action === 'update') {
+    if ($id) {
         updateRecord($id, $_POST);
-        $success_msg = "Record updated successfully!";
-    } elseif (in_array($action, ['delete', 'withdraw'])) {
-        deleteRecord($id);
-        $success_msg = "Record deleted successfully!";
+        $success_msg = "Profile updated successfully!";
     }
 }
 
-$records = getRecordList();
-if (isset($_SESSION['role']) && $_SESSION['role'] === 'Reviewer') {
-    $records = array_filter($records, function($r) {
-        return (isset($r['reviewer_id']) && $r['reviewer_id'] === $_SESSION['user_id']);
-    });
-}
+$current_record = getRecordDetails($_SESSION['user_id']);
 ?>
 <?php include '../includes/header.php'; ?>
 <?php include '../includes/navbar.php'; ?>
 
 <div class="card">
     <div class="card-header">
-        <h2>Reviewer</h2>
+        <h2>Reviewer Profile</h2>
     </div>
     <div class="card-body">
-        <?php
-$current_record = [];
-if (isset($_SESSION['logged_in']) && $_SESSION['role'] === 'Reviewer') {
-    $current_record = getRecordDetails($_SESSION['user_id']);
-}
-?>
         <form action="" method="post">
             <div class="form-group">
                 <label for="reviewer_id">Reviewer ID:</label>
@@ -121,14 +78,14 @@ if (isset($_SESSION['logged_in']) && $_SESSION['role'] === 'Reviewer') {
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" value="<?= htmlspecialchars($current_record['password'] ?? '') ?>">
             </div>
-            
+
             <div class="button-group">
                 <button type="submit" class="btn btn-primary" name="action" value="update">Update Profile</button>
+                <button type="reset" class="btn btn-danger">Reset</button>
             </div>
         </form>
     </div>
 </div>
-
 
 <?php if ($success_msg): ?>
     <div id="toast" style="position: fixed; top: 20px; right: 20px; background-color: #28a745; color: white; padding: 15px 25px; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: flex; align-items: center; gap: 12px; z-index: 9999; font-weight: bold; font-size: 14px; animation: slideIn 0.3s ease-out forwards, fadeOut 0.5s ease-in forwards 2.5s;">
@@ -139,39 +96,5 @@ if (isset($_SESSION['logged_in']) && $_SESSION['role'] === 'Reviewer') {
         @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; visibility: hidden; } }
     </style>
 <?php endif; ?>
-
-<div class="card" style="margin-top: 20px; width: 90%; max-width: 1200px;">
-    <div class="card-header">
-        <h2><?= ucfirst(str_replace('_', ' ', $module)) ?> Records</h2>
-    </div>
-    <div class="card-body" style="overflow-x: auto;">
-        <table style="width: 100%; border-collapse: collapse; text-align: left;">
-            <thead>
-                <tr style="background-color: #f4f5f7; border-bottom: 2px solid #ccc;">
-                    <?php if(!empty($records)): ?>
-                        <?php foreach(array_keys(reset($records)) as $key): ?>
-                            <th style="padding: 10px; border: 1px solid #eee;"><?= htmlspecialchars(ucwords(str_replace('_', ' ', $key))) ?></th>
-                        <?php endforeach; ?>
-                    <th style=\"padding: 10px; border: 1px solid #eee; text-align: center; width: 60px;\">Actions</th>
-                    <?php else: ?>
-                        <th style="padding: 10px;">No records found.</th>
-                    <?php endif; ?>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach($records as $rec): ?>
-                    <tr>
-                        <?php foreach($rec as $key => $val): ?>
-                            <td style="padding: 10px; border: 1px solid #eee;"><?= htmlspecialchars($val) ?></td>
-                        <?php endforeach; ?>
-                    <td style=\"padding: 10px; border: 1px solid #eee; text-align: center;\">
-                        <button type=\"button\" class=\"btn btn-primary\" style=\"padding: 4px 8px; font-size: 11px;\" onclick='fillForm(<?= json_encode($rec, JSON_HEX_APOS | JSON_HEX_QUOT) ?>)'>Edit</button>
-                    </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-</div>
 
 <?php include '../includes/footer.php'; ?>
