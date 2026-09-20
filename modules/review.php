@@ -4,7 +4,7 @@ require_once '../includes/mock_seeder.php';
 $module = 'review';
 $primary_key = 'review_id';
 
-if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']) {
+if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in'] || $_SESSION['role'] !== 'Reviewer') {
     header("Location: ../index.php");
     exit;
 }
@@ -138,7 +138,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Reviewer') {
             </div>
             
             <div class="button-group">
-                <button type="submit" class="btn btn-primary" name="action" value="add">Add Review</button>
+                
                 <button type="submit" class="btn btn-primary" name="action" value="update">Update Review</button>
                 <button type="submit" class="btn btn-danger" name="action" value="delete">Delete Review</button>
                 <button type="button" class="btn btn-primary">Get Review Details</button>
@@ -162,7 +162,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Reviewer') {
 <div class="card" style="margin-top: 20px; width: 90%; max-width: 1200px;">
     <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; padding-right: 30px;">
         <h2><?= ucfirst(str_replace('_', ' ', $module)) ?> Records</h2>
-        <a href="?view=form" class="btn btn-primary" style="background-color: #28a745; text-decoration: none;">+ Add New Review</a>
+        <a href="../index.php" class="btn btn-primary" style="background-color: #6c757d; text-decoration: none;">&#8592; Dashboard</a>
     </div>
     <div class="card-body" style="overflow-x: auto;">
         <div style="margin-bottom: 15px;">
