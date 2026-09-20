@@ -102,3 +102,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_reviewer'])) {
 </div>
 
 <?php include '../includes/footer.php'; ?>
+
