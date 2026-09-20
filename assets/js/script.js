@@ -6,11 +6,16 @@ document.addEventListener("DOMContentLoaded", function () {
     forms.forEach(form => {
         form.addEventListener("submit", function (e) {
             
+            // Skip validation if the submitter is a delete/withdraw button
+            if (e.submitter && (e.submitter.value === 'delete' || e.submitter.value === 'withdraw')) {
+                return;
+            }
+
             let isValid = true;
             let errorMessage = "";
 
             // Required fields
-            const inputs = form.querySelectorAll("input:not([type='button']):not([type='submit']):not([type='reset']), textarea, select");
+            const inputs = form.querySelectorAll("input[required], textarea[required], select[required]");
             inputs.forEach(input => {
                 if (!input.value.trim() && input.type !== 'hidden') {
                     isValid = false;
@@ -128,7 +133,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const cells = document.querySelectorAll("table td");
     cells.forEach(cell => {
         const text = cell.innerText.trim();
-        const statuses = ["Submitted", "Under Review", "Accepted", "Rejected", "Revision Required", "Further Revision", "Accept", "Minor Revision", "Major Revision", "Reject"];
+        const statuses = ["Submitted", "Under Review", "Accepted", "Rejected", "Revision Required", "Further Revision", "Accept", "Minor Revision", "Major Revision", "Reject", "Pending"];
         
         if (statuses.includes(text)) {
             let badgeClass = "";
@@ -137,9 +142,10 @@ document.addEventListener("DOMContentLoaded", function() {
             else if (text === "Accepted" || text === "Accept") badgeClass = "badge-accepted";
             else if (text === "Rejected" || text === "Reject") badgeClass = "badge-rejected";
             else if (text === "Revision Required" || text === "Further Revision" || text === "Minor Revision" || text === "Major Revision") badgeClass = "badge-revision";
+            else if (text === "Pending") badgeClass = "badge-pending";
             
             if (badgeClass) {
-                cell.innerHTML = `<span class="badge ${badgeClass}">${text}</span>`;
+                cell.innerHTML = `<span class="badge ${badgeClass}" style="${text === 'Pending' ? 'background-color: #ffc107; color: #000;' : ''}">${text}</span>`;
             }
         }
     });
