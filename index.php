@@ -379,6 +379,7 @@ $page = $_GET['page'] ?? 'login';
                     <a href="modules/review.php" class="btn btn-primary dash-link">Submit Assigned Reviews</a>
                 <?php elseif ($_SESSION['role'] === 'Administrator'): ?>
                     <a href="modules/administrator.php" class="btn btn-primary dash-link">Admin Profile</a>
+                    <a href="modules/add_reviewer.php" class="btn btn-primary dash-link" style="background-color: #28a745;">+ Add New Reviewer</a>
                     <a href="modules/research_field.php" class="btn btn-primary dash-link">Manage Research Fields</a>
                     <a href="modules/final_decision.php" class="btn btn-primary dash-link">Issue Final Decisions</a>
                 <?php endif; ?>
