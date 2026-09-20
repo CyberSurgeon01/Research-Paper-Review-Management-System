@@ -19,19 +19,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     $user_id = trim($user_id);
     $password = trim($password);
 
-    // Bulletproof fallback for default credentials
-    if ($user_id === 'A001' && $password === 'author123') {
+    // Check user-created or updated accounts first
+    if (isset($_SESSION['author'][$user_id]) && $_SESSION['author'][$user_id]['password'] === $password) {
         $role = 'Author';
-    } elseif ($user_id === 'R001' && $password === 'reviewer123') {
+    } elseif (isset($_SESSION['reviewer'][$user_id]) && $_SESSION['reviewer'][$user_id]['password'] === $password) {
         $role = 'Reviewer';
-    } elseif ($user_id === 'ADMIN1' && $password === 'admin123') {
+    } elseif (isset($_SESSION['administrator'][$user_id]) && $_SESSION['administrator'][$user_id]['password'] === $password) {
         $role = 'Administrator';
     } else {
-        if (isset($_SESSION['author'][$user_id]) && $_SESSION['author'][$user_id]['password'] === $password) {
+        // Bulletproof fallback for default mock credentials
+        if ($user_id === 'A001' && $password === 'author123') {
             $role = 'Author';
-        } elseif (isset($_SESSION['reviewer'][$user_id]) && $_SESSION['reviewer'][$user_id]['password'] === $password) {
+        } elseif ($user_id === 'R001' && $password === 'reviewer123') {
             $role = 'Reviewer';
-        } elseif (isset($_SESSION['administrator'][$user_id]) && $_SESSION['administrator'][$user_id]['password'] === $password) {
+        } elseif ($user_id === 'ADMIN1' && $password === 'admin123') {
             $role = 'Administrator';
         }
     }
