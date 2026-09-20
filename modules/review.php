@@ -107,6 +107,21 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Reviewer') {
         <a href="?view=list" class="btn btn-primary" style="background-color: #6c757d; text-decoration: none;">&#8592; Back to List</a>
     </div>
     <div class="card-body">
+        <?php if (isset($review_completed) && $review_completed): ?>
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    Swal.fire({
+                        title: 'Review Submitted!',
+                        text: 'Thank you! Your feedback has been saved and sent to the author.',
+                        icon: 'success',
+                        confirmButtonColor: '#28a745',
+                        confirmButtonText: 'Continue to List'
+                    }).then((result) => {
+                        window.location.href = '?view=list';
+                    });
+                });
+            </script>
+        <?php endif; ?>
         <form action="" method="post">
             <div class="form-group">
                 <label for="review_id">Review ID:</label>
