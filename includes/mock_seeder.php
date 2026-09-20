@@ -4,7 +4,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 $seed_version = 4;
-if (!isset($_SESSION['seeded']) || $_SESSION['seed_version'] < $seed_version) {
+if (!isset($_SESSION['seeded']) || !isset($_SESSION['seed_version']) || $_SESSION['seed_version'] < $seed_version) {
     $_SESSION['author'] = [
         'A001' => ['author_id' => 'A001', 'author_name' => 'Alice Author', 'email' => 'alice@example.com', 'affiliation' => 'Tech University', 'phone_number' => '1234567890', 'password' => 'author123'],
         'A002' => ['author_id' => 'A002', 'author_name' => 'Bob Writer', 'email' => 'bob@example.com', 'affiliation' => 'Science Institute', 'phone_number' => '0987654321', 'password' => 'author123']
