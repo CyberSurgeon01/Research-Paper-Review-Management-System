@@ -17,7 +17,15 @@ if (!isset($_SESSION['seeded'])) {
     ];
     $_SESSION['research_field'] = [
         'F001' => ['field_id' => 'F001', 'field_name' => 'Artificial Intelligence', 'description' => 'AI, ML, and deep learning research.'],
-        'F002' => ['field_id' => 'F002', 'field_name' => 'Data Science', 'description' => 'Big data analytics and statistics.']
+        'F002' => ['field_id' => 'F002', 'field_name' => 'Data Science', 'description' => 'Big data analytics and statistics.'],
+        'F003' => ['field_id' => 'F003', 'field_name' => 'Cybersecurity', 'description' => 'Network security, cryptography, and threat analysis.'],
+        'F004' => ['field_id' => 'F004', 'field_name' => 'Quantum Computing', 'description' => 'Quantum algorithms, qubits, and hardware.'],
+        'F005' => ['field_id' => 'F005', 'field_name' => 'Bioinformatics', 'description' => 'Computational biology and genomics.'],
+        'F006' => ['field_id' => 'F006', 'field_name' => 'Blockchain Technology', 'description' => 'Decentralized systems and smart contracts.'],
+        'F007' => ['field_id' => 'F007', 'field_name' => 'Internet of Things (IoT)', 'description' => 'Connected devices and edge computing.'],
+        'F008' => ['field_id' => 'F008', 'field_name' => 'Software Engineering', 'description' => 'Agile, DevOps, and software architecture.'],
+        'F009' => ['field_id' => 'F009', 'field_name' => 'Computer Vision', 'description' => 'Image processing and pattern recognition.'],
+        'F010' => ['field_id' => 'F010', 'field_name' => 'Human-Computer Interaction', 'description' => 'UI/UX, usability, and accessible design.']
     ];
     $_SESSION['research_paper'] = [
         'P001' => ['paper_id' => 'P001', 'author_id' => 'A001', 'field_id' => 'F001', 'paper_title' => 'Deep Learning Advances', 'abstract_text' => 'A study on neural networks.', 'keywords' => 'AI, Neural Networks', 'submission_date' => '01-09-2026', 'status' => 'Under Review', 'file_path' => '/uploads/p001.pdf', 'version_number' => 1],
