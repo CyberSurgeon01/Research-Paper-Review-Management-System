@@ -363,29 +363,46 @@ $page = $_GET['page'] ?? 'login';
         <div class="card-header">
             <h2>System Dashboard</h2>
         </div>
-        <div class="card-body" style="text-align: center;">
-            <div style="background-color: #f8f9fa; padding: 15px; border-radius: 6px; margin-bottom: 25px;">
+        <div class="card-body" style="padding: 35px 40px;">
+            <div style="background-color: #f8f9fa; padding: 15px; border-radius: 6px; margin-bottom: 25px; text-align: center;">
                 <h3 style="margin: 0 0 5px 0; color: #0b1a45; font-size: 18px;">Welcome, <?= htmlspecialchars($_SESSION['user_id']) ?></h3>
-                <span style="font-size: 13px; color: #666; text-transform: uppercase; letter-spacing: 1px;"><?= htmlspecialchars($_SESSION['role']) ?> Role</span>
+                <span style="font-size: 13px; color: #666; text-transform: uppercase; letter-spacing: 1px;"><?= htmlspecialchars($_SESSION['role']) ?> Portal</span>
             </div>
+
+            <?php if ($_SESSION['role'] === 'Author'): ?>
             
-            <div style="margin-bottom: 30px;">
-                <?php if ($_SESSION['role'] === 'Author'): ?>
-                    <a href="modules/author.php" class="btn btn-primary dash-link">Author Profile</a>
-                    <a href="modules/research_paper.php" class="btn btn-primary dash-link">Submit / View Papers</a>
-                    <a href="modules/revision.php" class="btn btn-primary dash-link">Manage Revisions</a>
-                <?php elseif ($_SESSION['role'] === 'Reviewer'): ?>
-                    <a href="modules/reviewer.php" class="btn btn-primary dash-link">Reviewer Profile</a>
-                    <a href="modules/review.php" class="btn btn-primary dash-link">Submit Assigned Reviews</a>
-                <?php elseif ($_SESSION['role'] === 'Administrator'): ?>
-                    <a href="modules/administrator.php" class="btn btn-primary dash-link">Admin Profile</a>
-                    <a href="modules/add_reviewer.php" class="btn btn-primary dash-link" style="background-color: #28a745;">+ Add New Reviewer</a>
-                    <a href="modules/research_field.php" class="btn btn-primary dash-link">Manage Research Fields</a>
-                    <a href="modules/final_decision.php" class="btn btn-primary dash-link">Issue Final Decisions</a>
-                <?php endif; ?>
+            <p style="font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; font-weight: bold;">Account</p>
+            <a href="modules/author.php" class="btn btn-primary dash-link" style="display: flex; align-items: center; gap: 10px; justify-content: flex-start; padding-left: 20px; text-decoration: none;">👤 My Profile</a>
+            
+            <p style="font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 1px; margin: 20px 0 12px; font-weight: bold;">Research</p>
+            <a href="modules/research_paper.php" class="btn btn-primary dash-link" style="display: flex; align-items: center; gap: 10px; justify-content: flex-start; padding-left: 20px; text-decoration: none;">📄 Submit / View Papers</a>
+            <a href="modules/revision.php" class="btn btn-primary dash-link" style="display: flex; align-items: center; gap: 10px; justify-content: flex-start; padding-left: 20px; text-decoration: none;">🔄 Manage Revisions</a>
+
+            <?php elseif ($_SESSION['role'] === 'Reviewer'): ?>
+            
+            <p style="font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; font-weight: bold;">Account</p>
+            <a href="modules/reviewer.php" class="btn btn-primary dash-link" style="display: flex; align-items: center; gap: 10px; justify-content: flex-start; padding-left: 20px; text-decoration: none;">👤 My Profile</a>
+            
+            <p style="font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 1px; margin: 20px 0 12px; font-weight: bold;">Reviews</p>
+            <a href="modules/review.php" class="btn btn-primary dash-link" style="display: flex; align-items: center; gap: 10px; justify-content: flex-start; padding-left: 20px; text-decoration: none;">📝 Assigned Reviews</a>
+
+            <?php elseif ($_SESSION['role'] === 'Administrator'): ?>
+            
+            <p style="font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; font-weight: bold;">Account</p>
+            <a href="modules/administrator.php" class="btn btn-primary dash-link" style="display: flex; align-items: center; gap: 10px; justify-content: flex-start; padding-left: 20px; text-decoration: none;">👤 My Profile</a>
+            
+            <p style="font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 1px; margin: 20px 0 12px; font-weight: bold;">User Management</p>
+            <a href="modules/add_reviewer.php" class="btn btn-primary dash-link" style="display: flex; align-items: center; gap: 10px; justify-content: flex-start; padding-left: 20px; text-decoration: none; background-color: #28a745;">➕ Add New Reviewer</a>
+            
+            <p style="font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 1px; margin: 20px 0 12px; font-weight: bold;">Management</p>
+            <a href="modules/research_field.php" class="btn btn-primary dash-link" style="display: flex; align-items: center; gap: 10px; justify-content: flex-start; padding-left: 20px; text-decoration: none;">📚 Manage Research Fields</a>
+            <a href="modules/final_decision.php" class="btn btn-primary dash-link" style="display: flex; align-items: center; gap: 10px; justify-content: flex-start; padding-left: 20px; text-decoration: none;">⚖️ Issue Final Decisions</a>
+
+            <?php endif; ?>
+
+            <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid #eee;">
+                <a href="index.php?action=logout" class="btn btn-danger dash-link" style="margin-bottom: 0; text-decoration: none;">Logout</a>
             </div>
-            
-            <a href="index.php?action=logout" class="btn btn-danger dash-link" style="margin-bottom: 0;">Logout</a>
         </div>
         
         <?php endif; ?>
