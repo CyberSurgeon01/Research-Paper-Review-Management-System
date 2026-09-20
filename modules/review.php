@@ -72,6 +72,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         addRecord($_POST);
         $success_msg = "Record added successfully!";
     } elseif ($action === 'update') {
+        if ($_POST['recommendation'] !== 'Pending') {
+            $_POST['assignment_status'] = 'Completed';
+        }
         updateRecord($id, $_POST);
         $success_msg = "Record updated successfully!";
     } elseif (in_array($action, ['delete', 'withdraw'])) {
@@ -83,7 +86,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 $records = getRecordList();
 if (isset($_SESSION['role']) && $_SESSION['role'] === 'Reviewer') {
     $records = array_filter($records, function($r) {
-        return (isset($r['reviewer_id']) && $r['reviewer_id'] === $_SESSION['user_id']);
+        // Only show reviews that belong to this reviewer AND have been accepted or completed
+        $is_mine = (isset($r['reviewer_id']) && $r['reviewer_id'] === $_SESSION['user_id']);
+        $is_active = (isset($r['assignment_status']) && in_array($r['assignment_status'], ['Accepted', 'Completed']));
+        return $is_mine && $is_active;
     });
 }
 ?>

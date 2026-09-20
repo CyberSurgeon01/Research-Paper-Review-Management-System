@@ -23,7 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['assign'])) {
             'review_date' => '',
             'review_score' => '',
             'recommendation' => 'Pending',
-            'reviewer_comments' => ''
+            'reviewer_comments' => '',
+            'assignment_status' => 'Invited'
         ];
         
         // Update paper status to Under Review
@@ -118,8 +119,12 @@ $pending_papers = array_filter($_SESSION['research_paper'] ?? [], function($p) {
                     <td style="padding: 10px; border: 1px solid #eee;"><?= htmlspecialchars($r['paper_id']) ?></td>
                     <td style="padding: 10px; border: 1px solid #eee;"><?= htmlspecialchars($r['reviewer_id']) ?></td>
                     <td style="padding: 10px; border: 1px solid #eee;">
-                        <?php if ($r['recommendation'] === 'Pending' || empty($r['recommendation'])): ?>
-                            <span class="badge" style="background-color: #ffc107; color: #000;">Pending</span>
+                        <?php if (isset($r['assignment_status']) && $r['assignment_status'] === 'Invited'): ?>
+                            <span class="badge badge-pending" style="background-color: #17a2b8; color: #fff;">Invited</span>
+                        <?php elseif (isset($r['assignment_status']) && $r['assignment_status'] === 'Accepted'): ?>
+                            <span class="badge badge-pending" style="background-color: #ffc107; color: #000;">In Progress</span>
+                        <?php elseif (isset($r['assignment_status']) && $r['assignment_status'] === 'Declined'): ?>
+                            <span class="badge badge-rejected">Declined</span>
                         <?php else: ?>
                             <span class="badge badge-accepted">Completed</span>
                         <?php endif; ?>
@@ -133,3 +138,4 @@ $pending_papers = array_filter($_SESSION['research_paper'] ?? [], function($p) {
 <?php endif; ?>
 
 <?php include '../includes/footer.php'; ?>
+
